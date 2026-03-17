@@ -209,4 +209,5 @@ Posibles mejoras del sistema:
 
 ## 12. Conclusión
 
-La arquitectura MVC permite un desarrollo estructurado, organizado y mantenible. El uso de tecnologías web estándar garantiza compatibilidad y facilidad de implementación.
+La arquitectura MVC permite un desarrollo estructurado, organizado y mantenible. El uso de tecnologías web estándar garantiza compatibilidad y facilidad de implementación
+tambien permite la reutilizacion de codigo y es una arquitectura muy usada hoy en dia en el desarrollo de software.

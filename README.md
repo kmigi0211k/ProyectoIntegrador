@@ -189,6 +189,6 @@ Proyecto desarrollado con fines académicos como parte del Proyecto Integrador.
 
 ## 📄 Documentación Técnica
 
-Para información detallada sobre la arquitectura del sistema consultar:
+Para información detallada sobre la arquitectura del sistema consultar a la arquitectura MD
 
 👉 **ARQUITECTURA.MD**

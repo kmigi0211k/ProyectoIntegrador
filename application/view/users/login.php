@@ -46,6 +46,9 @@
                         
                         <button type="submit" title="Ingresar" name="btnLogin">Login</button>
                     </form>
+                    <?php if(isset($_GET['error'])): ?>
+                     <p style="color:red;">Usuario o contraseña incorrectos</p>
+                        <?php endif; ?>
                     
                 </div>
                 <div id="derecho">

@@ -10,46 +10,39 @@ class userController extends controller{
      $this-> modelU = $this->loadModel("mdlUsers");   
     }
     public function index(){
-        $error = false;
-        if(isset($_POST['btnLogin'])){
-            $this ->modelU->__SET('username', $_POST['txtUsername']);
-            $this ->modelU->__SET('password', $_POST['txtPassword']);
-            //vamos a crear un arreglo que luego se llenara con los datos del usuario 
-            $_POST=[];
+    if(isset($_POST['btnLogin'])){
 
-            $validate =$this->modelU->validateUser();
-
-            //condicional para usar el sweetalert
-            if($validate == true){
-                $_SESSION['alert'] = "Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Done',
-                showConfirmButton: false,
-                timer: 1500})";
-
-                if($validate==true){
-                    // var_dump($validate);
-                    // exit;
-                    //activamos la sesion
-                    $_SESSION['SESSION_START'] = true;
-                    $error=false;
-    
-                    $_SESSION ['Names']=$validate ['Names'];
-                    $_SESSION ['idUser']=$validate ['idUser'];
-                    $_SESSION ['LastName']=$validate ['LastName'];
-                    $_SESSION ['Document']=$validate ['Document'];
-                    $_SESSION ['userName']=$validate ['userName'];
-                    $_SESSION ['Description']=$validate ['Description'];
-    
-                    header("Location:".URL."userController/main");
-                }else{
-                    $error=true;
-                }
-    
-            }
+        if(empty($_POST['txtUsername']) || empty($_POST['txtPassword'])){
+            $_SESSION['alert'] = "Swal.fire({
+                icon: 'error',
+                title: 'Campos vacíos'
+            })";
+            require_once APP."view/users/login.php";
+            return;
         }
-        require_once APP."view/users/login.php";
+
+        $this->modelU->__SET('username', $_POST['txtUsername']);
+        $this->modelU->__SET('password', $_POST['txtPassword']);
+
+        $validate = $this->modelU->validateUser();
+
+        if($validate){
+            $_SESSION['SESSION_START'] = true;
+
+            $_SESSION['Names']=$validate['Names'];
+            $_SESSION['idUser']=$validate['idUser'];
+
+            header("Location:".URL."userController/main");
+        } else {
+            $_SESSION['alert'] = "Swal.fire({
+                icon: 'error',
+                title: 'Credenciales incorrectas'
+            })";
+        }
+    }
+
+    require_once APP."view/users/login.php";
+}
     }
 
     //metodo para el admin 

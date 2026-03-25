@@ -1,5 +1,6 @@
 <?php
 //crear el objeto y heredar
+// HU #9 Gestión de Usuarios
 class userController extends controller{
     //atributos
     private $modelU;

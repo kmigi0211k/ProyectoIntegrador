@@ -1,5 +1,6 @@
 <!-- modelo de usuario donde se heredan  los metodos de la clase padre -->
 <?php
+//HU-14 Roles 
 //hay que crear primero la herencia si es necesaria
 require_once("mdlPeople.php");
 

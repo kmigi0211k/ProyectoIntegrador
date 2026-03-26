@@ -35,6 +35,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    /**
+                                    * Método para listar los productos desde la base de datos
+                                    * HU-003: Gestión de Productos
+                                    */
                                     <?php foreach($product as $value): 
                                     $Product_data = [
                                         'idProducto' => $value['idProducto'],
@@ -46,6 +50,7 @@
                                     ];
                                     ?>
                                     <tr>
+                                    
                                         <td><?php echo $value['idProducto']; ?></td>
                                         <td><?php echo $value['Nombre']; ?></td>
                                         <td><?php echo $value['Descripcion']; ?></td>

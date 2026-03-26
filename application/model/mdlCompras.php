@@ -1,4 +1,6 @@
 <?php
+//Gestion Compras #11
+
 class mdlCompras{
     //atributos
     public $articulo;

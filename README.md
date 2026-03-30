@@ -15,21 +15,64 @@ Este proyecto es una modernización de un sistema CRUD de productos, migrado de 
     - Indicador de carrito en la barra de navegación.
 - **👤 Mi Perfil**: Gestión de datos de usuario con historial de cambios.
 
+## 🏗️ Estructura del Proyecto
+
+```text
+ProductosProLaravel/
+├── app/
+│   ├── Http/Controllers/    # Lógica de Negocio (Auth, Cart, Product)
+│   └── Models/             # Modelos Eloquent (User, Product, Person)
+├── database/
+│   ├── migrations/         # Esquema de base de datos (E-R)
+│   └── seeders/            # Datos iniciales
+├── public/
+│   ├── storage/            # Enlace simbólico a imágenes
+│   └── js/                 # Scripts de AJAX y UI
+└── resources/
+    ├── views/              # Plantillas Blade (Layouts, Auth, Products)
+    └── css/                # Estilos personalizados
+```
+
+## 🔒 Lógica de Autenticación (Custom)
+
+A diferencia de las instalaciones estándar de Breeze, este proyecto:
+1.  **Elimina el requerimiento de Email**: El registro y login se realizan exclusivamente mediante `user_name`.
+2.  **Estado del Usuario**: Cada usuario se crea con un `status` activo por defecto y se vincula a una `person_id` y `role_id` existentes en la arquitectura heredada.
+
 ## 🛠️ Stack Tecnológico
 
-- **Framework**: Laravel 10
-- **Frontend**: Blade, Bootstrap 5, jQuery
-- **Base de Datos**: MySQL
-- **Autenticación**: Laravel Breeze (Refactorizado)
+- **Framework**: Laravel 10 (PHP 8.1+)
+- **Frontend**: Blade, Bootstrap 5, jQuery 3.6
+- **Almacenamiento**: Laravel FileSystem (Disco Público)
+- **Base de Datos**: MySQL 8.x con migraciones versionadas.
 
 ## 📋 Requerimientos de Instalación
 
-1. Clonar el repositorio.
-2. Ejecutar `composer install`.
-3. Configurar el archivo `.env` con tus credenciales de base de datos.
-4. Ejecutar las migraciones: `php artisan migrate`.
-5. Crear el enlace simbólico para imágenes: `php artisan storage:link`.
-6. Compilar assets: `npm install && npm run dev` (o use `npm run build`).
+1.  **Clonar y Dependencias**:
+    ```bash
+    git clone https://github.com/kmigi0211k/ProyectoIntegrador.git
+    composer install
+    npm install
+    ```
+2.  **Configuración**:
+    - Crear un archivo `.env` basado en `.env.example`.
+    - Configurar las credenciales de la DB.
+3.  **Preparación**:
+    ```bash
+    php artisan key:generate
+    php artisan migrate
+    php artisan storage:link
+    ```
+4.  **Ejecutar**:
+    ```bash
+    # En desarrollo
+    npm run dev
+    # En producción
+    npm run build
+    ```
+
+---
+*Para más detalles técnicos, consulte el archivo [arquitectura.md](arquitectura.md).*
 
 ---
 *Desarrollado para el Proyecto Integrador - Desarrollo de Aplicaciones Web.*

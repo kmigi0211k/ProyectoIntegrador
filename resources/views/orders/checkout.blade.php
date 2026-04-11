@@ -14,22 +14,21 @@
                         <div class="row g-3">
                             <div class="col-12">
                                 <label class="form-label text-secondary small">Nombre Completo</label>
-                                <input type="text" class="form-control rounded-3" value="{{ Auth::user()->person->names }} {{ Auth::user()->person->last_name }}" readonly disabled>
+                                <input type="text" class="form-control rounded-3" value="{{ Auth::user()->person->names ?? 'Usuario' }} {{ Auth::user()->person->last_name ?? '' }}" readonly disabled>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label text-secondary small">Email</label>
-                                <input type="email" class="form-control rounded-3" value="{{ Auth::user()->person->email }}" readonly disabled>
+                                <input type="email" class="form-control rounded-3" value="{{ Auth::user()->person->email ?? 'sin-email@dominio.com' }}" readonly disabled>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label text-secondary small">Teléfono</label>
-                                <input type="text" class="form-control rounded-3" placeholder="+57 300 123 4567" required>
+                                <input type="text" name="phone" class="form-control rounded-3" placeholder="+57 300 123 4567" required>
                             </div>
                             <div class="col-12">
                                 <label class="form-label text-secondary small">Dirección de Entrega</label>
-                                <input type="text" class="form-control rounded-3" placeholder="Calle 123 #45-67" required>
+                                <input type="text" name="address" class="form-control rounded-3" placeholder="Calle 123 #45-67" required>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
 
@@ -38,18 +37,26 @@
                     <h5 class="mb-0 fw-bold">Método de Pago</h5>
                 </div>
                 <div class="card-body">
-                    <div class="d-flex gap-3">
-                        <div class="border rounded-3 p-3 flex-fill text-center bg-light border-primary">
-                            <i class="bi bi-cash fs-3 d-block mb-2 text-primary"></i>
-                            <span class="small fw-bold">Contra Entrega</span>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <input type="radio" class="btn-check" name="payment_method" id="cash" autocomplete="off" checked value="cash">
+                            <label class="btn btn-outline-primary w-100 py-3 rounded-4" for="cash">
+                                <i class="bi bi-cash-stack fs-3 d-block mb-2"></i>
+                                <span class="fw-bold">Efectivo / Contra Entrega</span>
+                                <p class="small mb-0 text-muted">Paga al recibir el producto</p>
+                            </label>
                         </div>
-                        <div class="border rounded-3 p-3 flex-fill text-center opacity-50">
-                            <i class="bi bi-credit-card fs-3 d-block mb-2 text-muted"></i>
-                            <span class="small">Tarjeta (Próximamente)</span>
+                        <div class="col-md-6">
+                            <input type="radio" class="btn-check" name="payment_method" id="transfer" autocomplete="off" value="transfer">
+                            <label class="btn btn-outline-primary w-100 py-3 rounded-4" for="transfer">
+                                <i class="bi bi-bank fs-3 d-block mb-2"></i>
+                                <span class="fw-bold">Transferencia / Nequi</span>
+                                <p class="small mb-0 text-muted">Bancolombia, Nequi o Daviplata</p>
+                            </label>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
 
         <div class="col-md-4">

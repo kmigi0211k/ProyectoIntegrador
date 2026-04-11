@@ -44,6 +44,13 @@
                                 <i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión
                             </button>
                         </form>
+                    @else
+                        <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">
+                            <i class="bi bi-box-arrow-in-right me-1"></i>Entrar
+                        </a>
+                        <a href="{{ route('register') }}" class="btn btn-light btn-sm fw-bold">
+                            Registrarse
+                        </a>
                     @endauth
                 </div>
             </div>

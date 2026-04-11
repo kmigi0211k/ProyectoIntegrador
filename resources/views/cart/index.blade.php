@@ -70,9 +70,9 @@
                     <a href="{{ route('cart.clear') }}" class="btn btn-link text-danger text-decoration-none small" onclick="return confirm('¿Vaciar carrito?')">
                         Vaciar Carrito
                     </a>
-                    <button class="btn btn-success rounded-pill px-4 shadow-sm fw-bold">
+                    <a href="{{ route('orders.checkout') }}" class="btn btn-success rounded-pill px-4 shadow-sm fw-bold">
                         Proceder al Pago <i class="bi bi-arrow-right ms-1"></i>
-                    </button>
+                    </a>
                 </div>
             @else
                 <div class="text-center py-5 text-muted">

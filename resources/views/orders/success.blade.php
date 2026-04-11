@@ -15,7 +15,7 @@
                 </div>
                 
                 <h2 class="fw-bold text-dark mb-2">¡Pedido Realizado con Éxito!</h2>
-                <p class="text-secondary mb-5">Gracias por tu compra, <strong>{{ Auth::user()->person->names }}</strong>. Tu pedido #{{ $order->id }} está siendo procesado.</p>
+                <p class="text-secondary mb-5">Gracias por tu compra, <strong>{{ Auth::user()->person->names ?? Auth::user()->user_name }}</strong>. Tu pedido #{{ $order->id }} está siendo procesado.</p>
                 
                 <div class="row text-start bg-light rounded-4 p-4 mb-5">
                     <div class="col-12 mb-3">
@@ -23,7 +23,7 @@
                     </div>
                     @foreach($order->items as $item)
                         <div class="col-12 d-flex justify-content-between mb-2">
-                            <span>{{ $item->product->name }} (x{{ $item->quantity }})</span>
+                            <span>{{ $item->product->name ?? 'Producto' }} (x{{ $item->quantity }})</span>
                             <span class="fw-bold">${{ number_format($item->price * $item->quantity, 2) }}</span>
                         </div>
                     @endforeach
@@ -44,7 +44,7 @@
             </div>
             
             <p class="mt-4 text-muted small">
-                Se ha enviado una confirmación a su correo electrónico: <strong>{{ Auth::user()->person->email }}</strong>
+                Se ha enviado una confirmación a su correo electrónico: <strong>{{ Auth::user()->person->email ?? 'N/A' }}</strong>
             </p>
         </div>
     </div>

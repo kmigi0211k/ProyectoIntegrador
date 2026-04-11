@@ -19,6 +19,12 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
 
+    public function dashboard()
+    {
+        $products = Product::all();
+        return view('products.dashboard', compact('products'));
+    }
+
     public function create()
     {
         return view('products.create');
@@ -31,7 +37,7 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|file|max:10240', // Aceptamos cualquier archivo hasta 10MB para probar
         ]);
 
         if ($request->hasFile('image')) {
@@ -40,7 +46,7 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->route('products.index')->with('success', 'Producto creado exitosamente.');
+        return redirect()->route('products.dashboard')->with('success', 'Producto creado exitosamente.');
     }
 
     public function edit(Product $product)
@@ -55,7 +61,7 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|file|max:10240',
         ]);
 
         if ($request->hasFile('image')) {
@@ -67,7 +73,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return redirect()->route('products.index')->with('success', 'Producto actualizado exitosamente.');
+        return redirect()->route('products.dashboard')->with('success', 'Producto actualizado exitosamente.');
     }
 
     public function destroy(Product $product)
@@ -76,6 +82,6 @@ class ProductController extends Controller
             Storage::disk('public')->delete($product->image);
         }
         $product->delete();
-        return redirect()->route('products.index')->with('success', 'Producto eliminado exitosamente.');
+        return redirect()->route('products.dashboard')->with('success', 'Producto eliminado exitosamente.');
     }
 }

@@ -24,6 +24,21 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <i class="bi bi-box-seam me-2"></i>{{ config('app.name', 'ProductosPro') }}
                 </a>
+
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">
+                            <i class="bi bi-shop me-1"></i>Tienda
+                        </a>
+                    </li>
+                    @auth
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('products.dashboard') ? 'active' : '' }}" href="{{ route('products.dashboard') }}">
+                            <i class="bi bi-speedometer2 me-1"></i>Panel
+                        </a>
+                    </li>
+                    @endauth
+                </ul>
                 
                 <div class="d-flex align-items-center gap-3">
                     @auth

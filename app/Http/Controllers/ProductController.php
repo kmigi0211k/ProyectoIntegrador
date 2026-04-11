@@ -19,6 +19,12 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
 
+    public function dashboard()
+    {
+        $products = Product::all();
+        return view('products.dashboard', compact('products'));
+    }
+
     public function create()
     {
         return view('products.create');
@@ -40,7 +46,7 @@ class ProductController extends Controller
 
         Product::create($data);
 
-        return redirect()->route('products.index')->with('success', 'Producto creado exitosamente.');
+        return redirect()->route('products.dashboard')->with('success', 'Producto creado exitosamente.');
     }
 
     public function edit(Product $product)
@@ -67,7 +73,7 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        return redirect()->route('products.index')->with('success', 'Producto actualizado exitosamente.');
+        return redirect()->route('products.dashboard')->with('success', 'Producto actualizado exitosamente.');
     }
 
     public function destroy(Product $product)
@@ -76,6 +82,6 @@ class ProductController extends Controller
             Storage::disk('public')->delete($product->image);
         }
         $product->delete();
-        return redirect()->route('products.index')->with('success', 'Producto eliminado exitosamente.');
+        return redirect()->route('products.dashboard')->with('success', 'Producto eliminado exitosamente.');
     }
 }

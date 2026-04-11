@@ -10,6 +10,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [ProductController::class, 'dashboard'])->name('products.dashboard');
     Route::resource('products', ProductController::class);
 
     // Profile Routes

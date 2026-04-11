@@ -61,3 +61,18 @@ Este documento detalla las funcionalidades de la aplicación desde la perspectiv
 **Como** usuario registrado,
 **Quiero** cambiar mi nombre de usuario o mi contraseña,
 **Para** mantener mis datos actualizados o por seguridad.
+
+---
+
+## 🧾 Proceso de Venta (Solución Sprint 2)
+
+### HU08: Finalización de Compra y Descuento de Inventario
+**Como** comprador,
+**Quiero** confirmar mi pedido desde una pantalla de checkout,
+**Para** concretar mi compra y que el sistema descuente automáticamente los productos del stock.
+- **Criterios de Aceptación:**
+    - Se debe generar un registro de pedido en la base de datos (Orders/OrderItems).
+    - El stock de cada producto debe disminuir según la cantidad comprada.
+    - Se debe mostrar un resumen final (recibo) tras una compra exitosa.
+    - El carrito debe vaciarse automáticamente al terminar el proceso.
+

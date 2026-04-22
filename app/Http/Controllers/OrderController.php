@@ -26,10 +26,29 @@ class OrderController extends Controller
         return view('orders.checkout', compact('cart', 'total'));
     }
 
+    /**
+     * @OA\Post(
+     *     path="/orders/process",
+     *     summary="Procesar la compra del carrito actual",
+     *     tags={"Pedidos"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Compra procesada exitosamente",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="order_id", type="integer")
+     *         )
+     *     ),
+     *     @OA\Response(response=400, description="Error en el proceso (stock insuficiente, carrito vacío)")
+     * )
+     */
     public function process(Request $request)
     {
         $cart = session()->get('cart', []);
         if (empty($cart)) {
+            if ($request->wantsJson()) {
+                return response()->json(['error' => 'Tu carrito está vacío.'], 400);
+            }
             return redirect()->route('cart.index')->with('error', 'Tu carrito está vacío.');
         }
 
@@ -69,10 +88,20 @@ class OrderController extends Controller
             DB::commit();
             session()->forget('cart');
 
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'message' => '¡Compra realizada con éxito!',
+                    'order_id' => $order->id
+                ], 200);
+            }
+
             return redirect()->route('orders.success', $order->id)->with('success', '¡Compra realizada con éxito!');
 
         } catch (\Exception $e) {
             DB::rollBack();
+            if ($request->wantsJson()) {
+                return response()->json(['error' => $e->getMessage()], 400);
+            }
             return redirect()->route('cart.index')->with('error', 'Error al procesar la compra: ' . $e->getMessage());
         }
     }

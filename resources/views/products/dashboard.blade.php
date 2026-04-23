@@ -70,10 +70,10 @@
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-outline-warning btn-sm rounded-pill px-3">
                                         <i class="bi bi-pencil me-1"></i>Editar
                                     </a>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display:inline;" class="delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-outline-danger btn-sm rounded-pill px-3" onclick="return confirm('¿Estás seguro?')">
+                                        <button type="button" class="btn btn-outline-danger btn-sm rounded-pill px-3 btn-delete">
                                             <i class="bi bi-trash me-1"></i>Eliminar
                                         </button>
                                     </form>
@@ -94,4 +94,26 @@
         </div>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('.btn-delete').click(function(e) {
+        e.preventDefault();
+        var form = $(this).closest('form');
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esta acción",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        });
+    });
+</script>
 @endsection

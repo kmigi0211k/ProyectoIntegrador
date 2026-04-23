@@ -15,14 +15,17 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
+        <!-- SweetAlert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-light">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <i class="bi bi-box-seam me-2"></i>{{ config('app.name', 'ProductosPro') }}
+                <a class="navbar-brand fw-bold" href="{{ url('/') }}">
+                    <i class="bi bi-shop-window me-2 text-primary"></i>Productos<span class="text-primary">Pro</span>
                 </a>
 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">

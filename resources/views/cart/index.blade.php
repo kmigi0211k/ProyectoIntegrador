@@ -67,9 +67,9 @@
                     </table>
                 </div>
                 <div class="card-footer bg-white border-0 py-3 rounded-bottom-4 d-flex justify-content-end gap-2">
-                    <a href="{{ route('cart.clear') }}" class="btn btn-link text-danger text-decoration-none small" onclick="return confirm('¿Vaciar carrito?')">
+                    <button type="button" class="btn btn-link text-danger text-decoration-none small" id="clear-cart">
                         Vaciar Carrito
-                    </a>
+                    </button>
                     <a href="{{ route('orders.checkout') }}" class="btn btn-success rounded-pill px-4 shadow-sm fw-bold">
                         Proceder al Pago <i class="bi bi-arrow-right ms-1"></i>
                     </a>
@@ -109,19 +109,48 @@
     $(".remove-from-cart").click(function (e) {
         e.preventDefault();
         var ele = $(this);
-        if(confirm("¿Eliminar producto?")) {
-            $.ajax({
-                url: '{{ route('cart.remove') }}',
-                method: "DELETE",
-                data: {
-                    _token: '{{ csrf_token() }}', 
-                    id: ele.attr("data-id")
-                },
-                success: function (response) {
-                    window.location.reload();
-                }
-            });
-        }
+        Swal.fire({
+            title: '¿Eliminar producto?',
+            text: "Se quitará este producto de tu carrito",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '{{ route('cart.remove') }}',
+                    method: "DELETE",
+                    data: {
+                        _token: '{{ csrf_token() }}', 
+                        id: ele.attr("data-id")
+                    },
+                    success: function (response) {
+                        window.location.reload();
+                    }
+                });
+            }
+        });
+    });
+
+    $("#clear-cart").click(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: '¿Vaciar carrito?',
+            text: "Se eliminarán todos los productos de tu carrito",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, vaciar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = '{{ route('cart.clear') }}';
+            }
+        });
     });
 </script>
 @endsection

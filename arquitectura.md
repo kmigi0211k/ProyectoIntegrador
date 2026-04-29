@@ -64,4 +64,20 @@ Se utiliza el `FileSystem` de Laravel configurado en el disco `public`.
 - **Validación**: Los archivos son validados por tipo (mimes:jpg,png,jpeg) y tamaño (max:2048kb).
 
 ---
-*Documentación técnica - Sprint 1.*
+
+## 🧪 Calidad y Pruebas (QA) - Sprint 4
+
+El proyecto implementa pruebas automatizadas para asegurar la integridad de las funciones críticas.
+
+- **Feature Tests**: Pruebas de integración que simulan interacciones de usuario (Auth, CRUD de productos, Carrito, Voluntariado).
+- **Unit Tests**: Pruebas de lógica aislada en modelos y servicios.
+- **Herramientas**: PHPUnit y Laravel Testing Framework.
+
+## 🚀 Despliegue y CI/CD
+
+- **Integración Continua (CI)**: GitHub Actions ejecuta el pipeline de pruebas en cada pull request.
+- **GitFlow**: El desarrollo se organiza en ramas `feature/`, integrándose a `develop` y finalmente a `main` para lanzamientos estables.
+
+---
+*Documentación técnica - Sprint 4.*
+

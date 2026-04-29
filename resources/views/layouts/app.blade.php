@@ -34,12 +34,19 @@
                             <i class="bi bi-shop me-1"></i>Tienda
                         </a>
                     </li>
-                    @auth
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('products.dashboard') ? 'active' : '' }}" href="{{ route('products.dashboard') }}">
-                            <i class="bi bi-speedometer2 me-1"></i>Panel
+                        <a class="nav-link {{ request()->routeIs('products.comunidad') ? 'active fw-bold' : '' }} text-success" href="{{ route('products.comunidad') }}">
+                            <i class="bi bi-houses-fill me-1"></i>12 de Octubre
                         </a>
                     </li>
+                    @auth
+                        @if(Auth::user()->role_id == 1)
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('products.dashboard') ? 'active' : '' }}" href="{{ route('products.dashboard') }}">
+                                <i class="bi bi-speedometer2 me-1"></i>Panel
+                            </a>
+                        </li>
+                        @endif
                     @endauth
                 </ul>
                 

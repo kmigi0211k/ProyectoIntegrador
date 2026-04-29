@@ -15,6 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+                        Tienda
+                    </x-nav-link>
+                    <x-nav-link :href="route('products.comunidad')" :active="request()->routeIs('products.comunidad')" class="text-green-600 font-semibold">
+                        Comunidad 12 de Octubre
+                    </x-nav-link>
                 </div>
             </div>
 

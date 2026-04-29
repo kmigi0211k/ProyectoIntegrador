@@ -11,6 +11,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [ProductController::class, 'dashboard'])->name('products.dashboard');
+    Route::get('/comunidad-12-octubre', [ProductController::class, 'comunidad'])->name('products.comunidad');
+    Route::post('/comunidad-12-octubre/voluntariado/{product}', [\App\Http\Controllers\VolunteerController::class, 'store'])->name('volunteers.store');
     Route::resource('products', ProductController::class);
 
     // Profile Routes

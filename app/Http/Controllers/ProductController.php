@@ -11,6 +11,7 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware(\App\Http\Middleware\CheckAdmin::class)->only(['dashboard', 'create', 'store', 'edit', 'update', 'destroy']);
     }
 
     /**
@@ -32,6 +33,12 @@ class ProductController extends Controller
             return response()->json($products);
         }
         return view('products.index', compact('products'));
+    }
+
+    public function comunidad()
+    {
+        $products = Product::all();
+        return view('products.comunidad', compact('products'));
     }
 
     public function dashboard()

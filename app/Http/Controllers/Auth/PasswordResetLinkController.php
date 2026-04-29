@@ -29,16 +29,26 @@ class PasswordResetLinkController extends Controller
             'email' => ['required', 'email'],
         ]);
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
-        $status = Password::sendResetLink(
-            $request->only('email')
+        $person = \App\Models\Person::where('email', $request->email)->first();
+
+        if (!$person) {
+            return back()->withInput($request->only('email'))
+                         ->withErrors(['email' => 'No encontramos a ningún usuario con ese correo electrónico.']);
+        }
+
+        // Generar el token manualmente
+        $token = \Illuminate\Support\Str::random(60);
+        \Illuminate\Support\Facades\DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
+            [
+                'token' => \Illuminate\Support\Facades\Hash::make($token),
+                'created_at' => now()
+            ]
         );
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+        // Enviar el correo real usando el sistema de notificaciones de Laravel
+        $person->user->notify(new \Illuminate\Auth\Notifications\ResetPassword($token));
+
+        return back()->with('status', 'Hemos enviado un enlace de recuperación a tu correo electrónico.');
     }
 }

@@ -29,6 +29,16 @@
                             @enderror
                         </div>
 
+                        <div class="mb-4 text-center border border-success p-3 rounded-4 bg-success bg-opacity-10">
+                            <div class="form-check form-switch d-inline-block text-start">
+                                <input class="form-check-input fs-4" type="checkbox" role="switch" id="is_community" name="is_community" value="1" {{ old('is_community', $product->is_community) ? 'checked' : '' }}>
+                                <label class="form-check-label fw-bold text-success ms-2 mt-1" for="is_community">
+                                    <i class="bi bi-houses-fill me-1"></i> Exclusivo Comunidad 12 de Octubre (Trueque)
+                                </label>
+                            </div>
+                            <div class="form-text mt-2 text-success">Si activas esto, el producto no saldrá en la tienda principal, sino en el panel del barrio para trueque.</div>
+                        </div>
+
                         <div class="mb-3">
                             <label class="form-label fw-bold">Nombre</label>
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $product->name) }}" placeholder="Ej: Laptop Dell XPS">

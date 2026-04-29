@@ -14,6 +14,11 @@ Este proyecto es una modernización de un sistema CRUD de productos, migrado de 
     - Actualización de cantidades por AJAX.
     - Indicador de carrito en la barra de navegación.
 - **👤 Mi Perfil**: Gestión de datos de usuario con historial de cambios.
+- **🤝 Mercado Solidario (Sprint 4)**:
+    - Registro de voluntariado para obtención de productos.
+    - Integración con WhatsApp para coordinación directa.
+    - Automatización de pruebas y CI/CD con GitHub Actions.
+
 
 ## 🛠️ Stack Tecnológico
 
@@ -32,4 +37,24 @@ Este proyecto es una modernización de un sistema CRUD de productos, migrado de 
 6. Compilar assets: `npm install && npm run dev` (o use `npm run build`).
 
 ---
-*Desarrollado para el Proyecto Integrador - Desarrollo de Aplicaciones Web.*
+
+## 🧪 Pruebas y Despliegue (Sprint 4)
+
+### Ejecución de Pruebas
+Para ejecutar las pruebas automatizadas (Feature y Unit tests):
+```bash
+php artisan test
+```
+
+### CI/CD
+El proyecto cuenta con un flujo de **GitHub Actions** configurado para ejecutar las pruebas automáticamente en cada `push` a las ramas `main`, `develop` y ramas de `feature/`.
+
+## 🔗 Enlaces del Proyecto
+
+- **Repositorio**: [GitHub - Proyecto Integrador](https://github.com/kmigi0211k/ProyectoIntegrador)
+- **Documentación**: [User Stories](user_stories.md) | [Arquitectura](arquitectura.md)
+- **Producción**: [Enlace de Producción (si aplica)](https://proyectointegrador-prod.com)
+
+---
+*Desarrollado para el Proyecto Integrador - Desarrollo de Aplicaciones Web - Sprint 4.*
+

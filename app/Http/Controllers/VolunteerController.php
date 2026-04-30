@@ -34,4 +34,12 @@ class VolunteerController extends Controller
 
         return redirect()->away($whatsappUrl);
     }
+
+    public function admin()
+    {
+        $volunteers = \App\Models\Volunteer::with(['user', 'product'])
+                        ->latest()
+                        ->get();
+        return view('volunteers.admin', compact('volunteers'));
+    }
 }

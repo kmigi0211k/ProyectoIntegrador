@@ -1,76 +1,372 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Iniciar Sesión — ProductosPro</title>
 
-@section('content')
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                <div class="card-header bg-dark py-4 text-center border-0">
-                    <h4 class="mb-0 text-white fw-bold">Bienvenido</h4>
-                    <p class="text-white-50 small mb-0">Inicia sesión para continuar</p>
-                </div>
-                <div class="card-body p-4 p-md-5">
-                    <!-- Session Status -->
-                    @if(session('status'))
-                        <div class="alert alert-success small mb-4" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-                        <!-- User Name -->
-                        <div class="mb-3">
-                            <label for="user_name" class="form-label small fw-bold text-secondary">Nombre de Usuario</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-light border-end-0 rounded-start-3 text-muted">@</span>
-                                <input id="user_name" type="text" name="user_name" class="form-control rounded-end-3 border-start-0 @error('user_name') is-invalid @enderror" value="{{ old('user_name') }}" required autofocus placeholder="tu_usuario">
-                            </div>
-                            @error('user_name')
-                                <div class="text-danger small mt-1">{{ $message }}</div>
-                            @enderror
-                        </div>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: hidden;
+        }
 
-                        <!-- Password -->
-                        <div class="mb-3">
-                            <label for="password" class="form-label small fw-bold text-secondary">Contraseña</label>
-                            <input id="password" type="password" name="password" class="form-control rounded-3 @error('password') is-invalid @enderror" required placeholder="••••••••">
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+        @keyframes gradientShift {
+            0%   { background-position: 0% 50%; }
+            50%  { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
-                        <!-- Remember Me -->
-                        <div class="mb-4 form-check">
-                            <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-                            <label class="form-check-label small text-muted" for="remember_me">Recuérdame</label>
-                        </div>
+        /* Floating orbs in background */
+        body::before {
+            content: '';
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent 70%);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: float 8s ease-in-out infinite;
+        }
 
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-dark btn-lg rounded-pill fw-bold shadow-sm">
-                                Entrar
-                            </button>
-                        </div>
+        body::after {
+            content: '';
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.25), transparent 70%);
+            border-radius: 50%;
+            bottom: -80px;
+            left: -80px;
+            animation: float 10s ease-in-out infinite reverse;
+        }
 
-                        @if (Route::has('password.request'))
-                            <div class="text-center mt-3">
-                                <a class="text-decoration-none small text-muted" href="{{ route('password.request') }}">
-                                    ¿Olvidaste tu contraseña?
-                                </a>
-                            </div>
-                        @endif
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50%       { transform: translateY(-30px) scale(1.05); }
+        }
 
-                        <hr class="my-4">
+        .login-card {
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 48px 44px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 0.6s ease;
+        }
 
-                        <div class="text-center">
-                            <span class="text-muted small">¿No tienes cuenta?</span>
-                            <a href="{{ route('register') }}" class="small fw-bold text-decoration-none ms-1 text-primary">Regístrate</a>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .brand-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-name span { color: #818cf8; }
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-title h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .login-title p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 8px;
+            letter-spacing: 0.3px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 16px;
+            z-index: 5;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 12px;
+            color: #fff;
+            padding: 13px 14px 13px 42px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control::placeholder { color: rgba(255, 255, 255, 0.3); }
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(99, 102, 241, 0.7);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+            color: #fff;
+            outline: none;
+        }
+
+        .form-control.is-invalid {
+            border-color: rgba(239, 68, 68, 0.7);
+        }
+
+        .text-danger { color: #f87171 !important; font-size: 12px; margin-top: 6px; }
+
+        .remember-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .form-check-input {
+            background-color: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .form-check-input:checked {
+            background-color: #6366f1;
+            border-color: #6366f1;
+        }
+
+        .form-check-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .forgot-link {
+            font-size: 13px;
+            color: #818cf8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .forgot-link:hover { color: #a5b4fc; text-decoration: underline; }
+
+        .btn-login {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            cursor: pointer;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.55);
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+        }
+
+        .btn-login:active { transform: translateY(0); }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .divider span { font-size: 12px; color: rgba(255,255,255,0.35); }
+
+        .register-link {
+            text-align: center;
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .register-link a {
+            color: #818cf8;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .register-link a:hover { color: #a5b4fc; }
+
+        .alert-success-custom {
+            background: rgba(52, 211, 153, 0.15);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 13px;
+            color: #6ee7b7;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .login-card { padding: 36px 28px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+
+    <!-- Logo/Brand -->
+    <div class="brand-logo">
+        <div class="brand-icon">🛍️</div>
+        <div class="brand-name">Productos<span>Pro</span></div>
     </div>
+
+    <div class="login-title">
+        <h1>Bienvenido de nuevo</h1>
+        <p>Inicia sesión para continuar</p>
+    </div>
+
+    <!-- Session Status -->
+    @if(session('status'))
+        <div class="alert-success-custom">
+            <i class="bi bi-check-circle me-2"></i>{{ session('status') }}
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <!-- Usuario -->
+        <div class="mb-4">
+            <label for="user_name" class="form-label">Nombre de Usuario</label>
+            <div class="input-wrapper">
+                <i class="bi bi-person input-icon"></i>
+                <input
+                    id="user_name"
+                    type="text"
+                    name="user_name"
+                    class="form-control @error('user_name') is-invalid @enderror"
+                    value="{{ old('user_name') }}"
+                    required
+                    autofocus
+                    placeholder="tu_usuario"
+                    autocomplete="username">
+            </div>
+            @error('user_name')
+                <div class="text-danger"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Contraseña -->
+        <div class="mb-4">
+            <label for="password" class="form-label">Contraseña</label>
+            <div class="input-wrapper">
+                <i class="bi bi-lock input-icon"></i>
+                <input
+                    id="password"
+                    type="password"
+                    name="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    required
+                    placeholder="••••••••"
+                    autocomplete="current-password">
+            </div>
+            @error('password')
+                <div class="text-danger"><i class="bi bi-exclamation-circle me-1"></i>{{ $message }}</div>
+            @enderror
+        </div>
+
+        <!-- Remember + Forgot -->
+        <div class="remember-row">
+            <div class="form-check mb-0">
+                <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
+                <label class="form-check-label" for="remember_me">Recuérdame</label>
+            </div>
+            @if (Route::has('password.request'))
+                <a href="{{ route('password.request') }}" class="forgot-link">¿Olvidaste tu contraseña?</a>
+            @endif
+        </div>
+
+        <!-- Botón Login -->
+        <button type="submit" class="btn-login">
+            <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
+        </button>
+    </form>
+
+    <div class="divider"><span>¿Primera vez aquí?</span></div>
+
+    <div class="register-link">
+        ¿No tienes cuenta? <a href="{{ route('register') }}">Regístrate gratis</a>
+    </div>
+
 </div>
-@endsection
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

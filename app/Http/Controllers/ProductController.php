@@ -126,4 +126,10 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.dashboard')->with('success', 'Producto eliminado exitosamente.');
     }
+
+    public function comunidad()
+    {
+        $products = Product::all();
+        return view('products.comunidad', compact('products'));
+    }
 }

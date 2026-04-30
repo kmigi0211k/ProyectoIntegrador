@@ -76,3 +76,17 @@ Este documento detalla las funcionalidades de la aplicación desde la perspectiv
     - Se debe mostrar un resumen final (recibo) tras una compra exitosa.
     - El carrito debe vaciarse automáticamente al terminar el proceso.
 
+---
+
+## 🤝 Mercado Solidario (Solución Sprint 4)
+
+### HU09: Registro de Voluntariado por Producto
+**Como** miembro de la comunidad "12 de Octubre",
+**Quiero** comprometerme a realizar horas de servicio social,
+**Para** obtener un producto sin costo monetario y contribuir al barrio.
+- **Criterios de Aceptación:**
+    - El usuario debe especificar el tipo de ayuda y las horas comprometidas.
+    - El sistema debe redirigir al usuario a WhatsApp para coordinar con el administrador.
+    - Se debe crear un registro de voluntariado en estado "pendiente".
+
+

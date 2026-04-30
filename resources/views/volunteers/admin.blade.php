@@ -2,261 +2,345 @@
 
 @section('content')
 <style>
-    body { background: #0f1117 !important; }
+    .vol-wrapper {
+        background: #f8fafc;
+        min-height: 100vh;
+        padding: 32px 24px;
+    }
 
-    .page-header {
-        background: linear-gradient(135deg, #1a1a2e, #16213e);
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 20px;
-        padding: 28px 32px;
-        margin-bottom: 28px;
+    .page-topbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: 28px;
     }
 
-    .page-title { font-size: 22px; font-weight: 800; color: #fff; }
-    .page-subtitle { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+    .page-title { font-size: 26px; font-weight: 800; color: #0f172a; letter-spacing: -0.5px; }
+    .page-title span { color: #10b981; }
+    .page-sub { font-size: 13px; color: #94a3b8; margin-top: 4px; }
 
     .btn-back {
-        background: rgba(255,255,255,0.07);
-        border: 1px solid rgba(255,255,255,0.1);
+        background: #fff;
+        border: 1px solid #e2e8f0;
         border-radius: 10px;
-        padding: 9px 18px;
+        padding: 10px 18px;
         font-size: 13px;
-        font-weight: 600;
-        color: rgba(255,255,255,0.7);
+        font-weight: 700;
+        color: #64748b;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 7px;
         transition: all 0.2s;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
 
-    .btn-back:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .btn-back:hover { background: #f1f5f9; color: #334155; }
 
     /* Stats */
     .stats-row {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-        gap: 16px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
         margin-bottom: 28px;
     }
 
-    .stat-mini {
-        background: #1a1d2e;
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 14px;
-        padding: 18px 16px;
-        text-align: center;
+    @media (max-width: 768px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+
+    .stat-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 20px 18px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.03);
+        border: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        gap: 14px;
     }
 
-    .stat-mini .num { font-size: 26px; font-weight: 800; color: #fff; }
-    .stat-mini .lbl { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 4px; }
-    .stat-mini.pending .num { color: #fbbf24; }
-    .stat-mini.total .num { color: #818cf8; }
-    .stat-mini.users .num { color: #34d399; }
+    .stat-icon-box {
+        width: 48px; height: 48px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+    }
 
-    /* Table */
+    .icon-violet { background: #f5f3ff; color: #7c3aed; }
+    .icon-amber  { background: #fffbeb; color: #d97706; }
+    .icon-teal   { background: #f0fdfa; color: #0d9488; }
+    .icon-rose   { background: #fff1f2; color: #e11d48; }
+
+    .stat-val { font-size: 26px; font-weight: 800; color: #0f172a; line-height: 1; }
+    .stat-lbl { font-size: 12px; color: #94a3b8; margin-top: 4px; }
+
+    /* Table Card */
     .table-card {
-        background: #1a1d2e;
-        border: 1px solid rgba(255,255,255,0.06);
+        background: #fff;
         border-radius: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+        border: 1px solid #f1f5f9;
         overflow: hidden;
     }
 
-    .table-card-header {
-        padding: 18px 24px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+    .table-header {
+        padding: 20px 28px;
+        border-bottom: 1px solid #f8fafc;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
-    .table-card-title { font-size: 15px; font-weight: 700; color: #fff; }
+    .table-title { font-size: 16px; font-weight: 800; color: #0f172a; }
+    .table-count {
+        font-size: 12px;
+        color: #94a3b8;
+        background: #f1f5f9;
+        border-radius: 20px;
+        padding: 4px 12px;
+    }
 
-    .table { margin: 0; }
+    table { width: 100%; border-collapse: collapse; }
 
-    .table thead th {
-        background: rgba(0,0,0,0.2);
-        color: rgba(255,255,255,0.35);
+    thead th {
+        background: #f8fafc;
+        padding: 12px 16px;
         font-size: 11px;
         font-weight: 700;
+        color: #64748b;
         text-transform: uppercase;
-        letter-spacing: 0.8px;
-        border: none;
-        padding: 13px 20px;
+        letter-spacing: 0.7px;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: left;
+        white-space: nowrap;
     }
 
-    .table tbody tr { border-color: rgba(255,255,255,0.04); }
-    .table tbody tr:hover { background: rgba(255,255,255,0.02); }
+    tbody tr { border-bottom: 1px solid #f8fafc; transition: background 0.15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fafbff; }
 
-    .table tbody td {
-        color: rgba(255,255,255,0.75);
+    tbody td {
+        padding: 14px 16px;
         font-size: 13px;
-        padding: 14px 20px;
-        border-color: rgba(255,255,255,0.04);
+        color: #334155;
         vertical-align: middle;
     }
 
     .user-chip {
-        display: inline-flex;
+        display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 10px;
     }
 
     .avatar {
-        width: 34px; height: 34px;
+        width: 36px; height: 36px;
         border-radius: 10px;
         background: linear-gradient(135deg, #6366f1, #8b5cf6);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
         color: #fff;
         flex-shrink: 0;
     }
 
-    .user-name { font-weight: 700; color: #f1f5f9; font-size: 14px; }
+    .uname { font-weight: 700; color: #0f172a; font-size: 14px; }
 
-    .help-chip {
-        background: rgba(99,102,241,0.12);
-        border: 1px solid rgba(99,102,241,0.2);
-        border-radius: 8px;
-        padding: 4px 10px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #818cf8;
-    }
+    .product-name-cell { font-weight: 600; color: #334155; }
 
-    .hours-chip {
-        background: rgba(16,185,129,0.12);
-        border: 1px solid rgba(16,185,129,0.2);
+    .chip {
+        display: inline-block;
         border-radius: 8px;
         padding: 4px 10px;
         font-size: 12px;
         font-weight: 700;
-        color: #34d399;
     }
 
-    .status-pending {
-        background: rgba(245,158,11,0.15);
-        border: 1px solid rgba(245,158,11,0.25);
+    .chip-help  { background: #eef2ff; color: #6366f1; }
+    .chip-hours { background: #f0fdf4; color: #16a34a; }
+    .chip-pending { background: #fffbeb; color: #d97706; }
+
+    .date-txt { font-size: 12px; color: #94a3b8; }
+
+    .btn-del-vol {
+        background: #fff1f2;
+        border: 1px solid #fecdd3;
         border-radius: 8px;
-        padding: 4px 10px;
-        font-size: 11px;
+        padding: 7px 14px;
+        font-size: 12px;
         font-weight: 700;
-        color: #fbbf24;
+        color: #e11d48;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.2s;
     }
 
-    .product-chip {
-        font-size: 13px;
-        font-weight: 600;
-        color: #c4b5fd;
+    .btn-del-vol:hover { background: #ffe4e6; color: #be123c; }
+
+    .empty-row { text-align: center; padding: 70px 20px; }
+    .empty-icon { font-size: 52px; margin-bottom: 14px; opacity: 0.3; }
+
+    .alert-ok {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        border-radius: 12px;
+        color: #166534;
+        padding: 14px 18px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
     }
-
-    .date-chip { font-size: 12px; color: rgba(255,255,255,0.35); }
-
-    .empty-state {
-        text-align: center;
-        padding: 70px 20px;
-        color: rgba(255,255,255,0.3);
-    }
-
-    .empty-state .icon { font-size: 52px; margin-bottom: 14px; opacity: 0.4; }
 </style>
 
-<div class="container-fluid px-4 py-4">
+<div class="vol-wrapper">
+    <div class="container-fluid">
 
-    <div class="page-header">
-        <div>
-            <div class="page-title">🤝 Panel de Voluntariado</div>
-            <div class="page-subtitle">
-                Gestiona todos los registros de voluntariado de la comunidad
+        @if(session('success'))
+        <div class="alert-ok">
+            <i class="bi bi-check-circle-fill" style="color:#16a34a; font-size:18px;"></i>
+            {{ session('success') }}
+        </div>
+        @endif
+
+        <!-- Topbar -->
+        <div class="page-topbar">
+            <div>
+                <div class="page-title">Panel de <span>Voluntarios</span></div>
+                <div class="page-sub">Gestiona todos los registros de voluntariado de la comunidad</div>
+            </div>
+            <a href="{{ route('products.dashboard') }}" class="btn-back">
+                <i class="bi bi-arrow-left"></i> Volver al Panel
+            </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon-box icon-violet"><i class="bi bi-people-fill"></i></div>
+                <div>
+                    <div class="stat-val">{{ $volunteers->count() }}</div>
+                    <div class="stat-lbl">Total Registros</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-box icon-amber"><i class="bi bi-hourglass-split"></i></div>
+                <div>
+                    <div class="stat-val">{{ $volunteers->where('status', 'pending')->count() }}</div>
+                    <div class="stat-lbl">Pendientes</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-box icon-teal"><i class="bi bi-person-check-fill"></i></div>
+                <div>
+                    <div class="stat-val">{{ $volunteers->pluck('user_id')->unique()->count() }}</div>
+                    <div class="stat-lbl">Voluntarios Únicos</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-box icon-rose"><i class="bi bi-clock-fill"></i></div>
+                <div>
+                    <div class="stat-val">{{ $volunteers->sum('hours_committed') }}</div>
+                    <div class="stat-lbl">Horas Comprometidas</div>
+                </div>
             </div>
         </div>
-        <a href="{{ route('products.dashboard') }}" class="btn-back">
-            <i class="bi bi-arrow-left"></i> Volver al Panel
-        </a>
-    </div>
 
-    <!-- Stats -->
-    <div class="stats-row">
-        <div class="stat-mini total">
-            <div class="num">{{ $volunteers->count() }}</div>
-            <div class="lbl">Total Registros</div>
+        <!-- Table -->
+        <div class="table-card">
+            <div class="table-header">
+                <div class="table-title">🤝 Registros de Voluntariado</div>
+                <span class="table-count">{{ $volunteers->count() }} registros</span>
+            </div>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="padding-left:24px;">#</th>
+                            <th>Voluntario</th>
+                            <th>Producto</th>
+                            <th>Tipo de Ayuda</th>
+                            <th>Horas</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                            <th>Detalles</th>
+                            <th style="text-align:center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($volunteers as $volunteer)
+                        <tr>
+                            <td style="padding-left:24px; color:#94a3b8; font-size:12px;">#{{ $volunteer->id }}</td>
+                            <td>
+                                <div class="user-chip">
+                                    <div class="avatar">{{ strtoupper(substr($volunteer->user->user_name ?? 'U', 0, 1)) }}</div>
+                                    <div class="uname">{{ $volunteer->user->user_name ?? 'Usuario eliminado' }}</div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="product-name-cell">📦 {{ $volunteer->product->name ?? 'Producto eliminado' }}</span>
+                            </td>
+                            <td><span class="chip chip-help">{{ $volunteer->help_type }}</span></td>
+                            <td><span class="chip chip-hours"><i class="bi bi-clock me-1"></i>{{ $volunteer->hours_committed }}h</span></td>
+                            <td><span class="chip chip-pending">⏳ {{ ucfirst($volunteer->status) }}</span></td>
+                            <td><span class="date-txt">{{ $volunteer->created_at->format('d/m/Y') }}</span></td>
+                            <td>
+                                <span style="font-size:12px; color:#94a3b8;">
+                                    {{ $volunteer->details ? \Illuminate\Support\Str::limit($volunteer->details, 28) : '—' }}
+                                </span>
+                            </td>
+                            <td style="text-align:center;">
+                                <form action="{{ route('volunteers.destroy', $volunteer->id) }}" method="POST" class="vol-del-form">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="button" class="btn-del-vol btn-del-volunteer">
+                                        <i class="bi bi-trash-fill"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="9">
+                                <div class="empty-row">
+                                    <div class="empty-icon">🤝</div>
+                                    <strong style="font-size:16px; color:#475569;">Sin registros aún</strong>
+                                    <p style="color:#94a3b8; margin-top:6px; font-size:13px;">Los voluntarios aparecerán aquí cuando se postulen.</p>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="stat-mini pending">
-            <div class="num">{{ $volunteers->where('status', 'pending')->count() }}</div>
-            <div class="lbl">Pendientes</div>
-        </div>
-        <div class="stat-mini users">
-            <div class="num">{{ $volunteers->pluck('user_id')->unique()->count() }}</div>
-            <div class="lbl">Voluntarios Únicos</div>
-        </div>
-        <div class="stat-mini">
-            <div class="num" style="color:#f87171;">{{ $volunteers->sum('hours_committed') }}</div>
-            <div class="lbl">Horas Comprometidas</div>
-        </div>
-    </div>
 
-    <!-- Table -->
-    <div class="table-card">
-        <div class="table-card-header">
-            <div class="table-card-title">Todos los Registros</div>
-        </div>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th style="padding-left:24px;">#</th>
-                        <th>Voluntario</th>
-                        <th>Producto</th>
-                        <th>Tipo de Ayuda</th>
-                        <th>Horas</th>
-                        <th>Estado</th>
-                        <th>Fecha</th>
-                        <th>Detalles</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($volunteers as $volunteer)
-                    <tr>
-                        <td style="padding-left:24px; color:rgba(255,255,255,0.3); font-size:12px;">
-                            #{{ $volunteer->id }}
-                        </td>
-                        <td>
-                            <div class="user-chip">
-                                <div class="avatar">{{ strtoupper(substr($volunteer->user->user_name ?? 'U', 0, 1)) }}</div>
-                                <div class="user-name">{{ $volunteer->user->user_name ?? 'Usuario eliminado' }}</div>
-                            </div>
-                        </td>
-                        <td>
-                            <span class="product-chip">📦 {{ $volunteer->product->name ?? 'Producto eliminado' }}</span>
-                        </td>
-                        <td><span class="help-chip">{{ $volunteer->help_type }}</span></td>
-                        <td><span class="hours-chip"><i class="bi bi-clock me-1"></i>{{ $volunteer->hours_committed }}h</span></td>
-                        <td><span class="status-pending">⏳ {{ ucfirst($volunteer->status) }}</span></td>
-                        <td><span class="date-chip">{{ $volunteer->created_at->format('d/m/Y') }}</span></td>
-                        <td>
-                            <span style="font-size:12px; color:rgba(255,255,255,0.4);">
-                                {{ $volunteer->details ? Str::limit($volunteer->details, 30) : '—' }}
-                            </span>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="8">
-                            <div class="empty-state">
-                                <div class="icon">🤝</div>
-                                <h4 style="color:rgba(255,255,255,0.4); font-size:16px;">Aún no hay voluntarios registrados</h4>
-                                <p style="font-size:13px; margin-top:6px;">Los registros aparecerán aquí cuando los usuarios se postulen.</p>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
     </div>
-
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('.btn-del-volunteer').click(function(e) {
+        e.preventDefault();
+        var form = $(this).closest('form');
+        Swal.fire({
+            title: '¿Eliminar registro?',
+            text: 'Se eliminará el registro de este voluntario.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#e11d48',
+            cancelButtonColor: '#64748b',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) { form.submit(); }
+        });
+    });
+</script>
 @endsection

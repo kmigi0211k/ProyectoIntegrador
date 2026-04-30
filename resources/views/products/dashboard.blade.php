@@ -2,190 +2,284 @@
 
 @section('content')
 <style>
-    body { background: #0f1117 !important; }
+    /* Dashboard - Estilo limpio y profesional */
+    .dash-wrapper {
+        background: #f8fafc;
+        min-height: 100vh;
+        padding: 32px 24px;
+    }
 
-    .dash-header {
-        background: linear-gradient(135deg, #1a1a2e, #16213e);
-        border: 1px solid rgba(255,255,255,0.06);
-        border-radius: 20px;
-        padding: 28px 32px;
-        margin-bottom: 28px;
+    /* Header */
+    .dash-topbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: 32px;
     }
 
-    .dash-title { font-size: 22px; font-weight: 800; color: #fff; }
-    .dash-subtitle { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+    .dash-greeting {
+        font-size: 26px;
+        font-weight: 800;
+        color: #0f172a;
+        letter-spacing: -0.5px;
+    }
 
-    .btn-new {
-        background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    .dash-greeting span { color: #6366f1; }
+
+    .dash-date {
+        font-size: 13px;
+        color: #94a3b8;
+        margin-top: 4px;
+    }
+
+    .btn-primary-new {
+        background: #6366f1;
+        color: #fff;
         border: none;
         border-radius: 12px;
-        padding: 11px 22px;
+        padding: 12px 24px;
         font-size: 14px;
         font-weight: 700;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.25s;
+        box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+    }
+
+    .btn-primary-new:hover {
+        background: #4f46e5;
         color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(99,102,241,0.45);
+    }
+
+    .btn-volunteers-btn {
+        background: #fff;
+        color: #f59e0b;
+        border: 2px solid #fde68a;
+        border-radius: 12px;
+        padding: 11px 20px;
+        font-size: 14px;
+        font-weight: 700;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 7px;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(99,102,241,0.35);
+        transition: all 0.25s;
     }
 
-    .btn-new:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(99,102,241,0.5);
-        color: #fff;
+    .btn-volunteers-btn:hover {
+        background: #fffbeb;
+        border-color: #f59e0b;
+        color: #d97706;
     }
 
-    /* Stats cards */
-    .stats-grid {
+    /* Stat Cards */
+    .stats-row {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-        gap: 16px;
-        margin-bottom: 28px;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 32px;
     }
+
+    @media (max-width: 768px) { .stats-row { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .stats-row { grid-template-columns: 1fr; } }
 
     .stat-card {
-        background: #1a1d2e;
-        border: 1px solid rgba(255,255,255,0.06);
+        background: #fff;
         border-radius: 16px;
-        padding: 22px 20px;
-        position: relative;
-        overflow: hidden;
+        padding: 24px 22px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+        border: 1px solid #f1f5f9;
+        display: flex;
+        align-items: center;
+        gap: 16px;
     }
 
-    .stat-card::before {
-        content: '';
-        position: absolute;
-        top: 0; right: 0;
-        width: 80px; height: 80px;
-        border-radius: 50%;
-        opacity: 0.08;
+    .stat-icon-box {
+        width: 52px; height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        flex-shrink: 0;
     }
 
-    .stat-card.blue::before { background: #6366f1; }
-    .stat-card.green::before { background: #10b981; }
-    .stat-card.amber::before { background: #f59e0b; }
-    .stat-card.red::before { background: #ef4444; }
+    .icon-indigo { background: #eef2ff; color: #6366f1; }
+    .icon-green  { background: #f0fdf4; color: #16a34a; }
+    .icon-amber  { background: #fffbeb; color: #d97706; }
+    .icon-red    { background: #fff1f2; color: #e11d48; }
 
-    .stat-icon {
-        font-size: 20px;
-        margin-bottom: 12px;
-    }
+    .stat-info { flex: 1; }
+    .stat-value { font-size: 28px; font-weight: 800; color: #0f172a; line-height: 1; }
+    .stat-label { font-size: 13px; color: #94a3b8; margin-top: 5px; }
 
-    .stat-card.blue .stat-icon { color: #818cf8; }
-    .stat-card.green .stat-icon { color: #34d399; }
-    .stat-card.amber .stat-icon { color: #fbbf24; }
-    .stat-card.red .stat-icon { color: #f87171; }
-
-    .stat-value { font-size: 28px; font-weight: 800; color: #fff; }
-    .stat-label { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 4px; }
-
-    /* Table */
+    /* Main Table Card */
     .table-card {
-        background: #1a1d2e;
-        border: 1px solid rgba(255,255,255,0.06);
+        background: #fff;
         border-radius: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+        border: 1px solid #f1f5f9;
         overflow: hidden;
     }
 
-    .table-card-header {
-        padding: 20px 24px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+    .table-header {
+        padding: 22px 28px;
+        border-bottom: 1px solid #f8fafc;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
-    .table-card-title { font-size: 16px; font-weight: 700; color: #fff; }
+    .table-title {
+        font-size: 17px;
+        font-weight: 800;
+        color: #0f172a;
+    }
 
-    .table { margin: 0; }
-    .table thead th {
-        background: rgba(0,0,0,0.2);
-        color: rgba(255,255,255,0.4);
+    .table-count {
+        font-size: 12px;
+        color: #94a3b8;
+        background: #f1f5f9;
+        border-radius: 20px;
+        padding: 4px 12px;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+
+    thead th {
+        background: #f8fafc;
+        padding: 13px 20px;
         font-size: 11px;
         font-weight: 700;
+        color: #64748b;
         text-transform: uppercase;
-        letter-spacing: 0.8px;
-        border: none;
-        padding: 14px 20px;
+        letter-spacing: 0.7px;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: left;
     }
 
-    .table tbody tr {
-        border-color: rgba(255,255,255,0.04);
-        transition: background 0.2s;
+    tbody tr {
+        border-bottom: 1px solid #f8fafc;
+        transition: background 0.15s;
     }
 
-    .table tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #fafbff; }
 
-    .table tbody td {
-        color: rgba(255,255,255,0.8);
-        font-size: 14px;
+    tbody td {
         padding: 16px 20px;
-        border-color: rgba(255,255,255,0.04);
+        font-size: 14px;
+        color: #334155;
         vertical-align: middle;
     }
 
+    .product-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
     .product-thumb {
-        width: 48px; height: 48px;
-        border-radius: 10px;
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
         object-fit: cover;
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 2px solid #f1f5f9;
+        flex-shrink: 0;
     }
 
     .product-thumb-placeholder {
-        width: 48px; height: 48px;
-        border-radius: 10px;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.08);
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
-        opacity: 0.5;
+        font-size: 22px;
+        flex-shrink: 0;
+        border: 2px solid #f1f5f9;
     }
 
-    .product-info-name { font-weight: 700; color: #f1f5f9; font-size: 14px; }
-    .product-info-desc { font-size: 12px; color: rgba(255,255,255,0.35); margin-top: 2px; }
+    .product-name-big {
+        font-size: 15px;
+        font-weight: 700;
+        color: #0f172a;
+        line-height: 1.3;
+    }
+
+    .product-desc-small {
+        font-size: 12px;
+        color: #94a3b8;
+        margin-top: 3px;
+        max-width: 180px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
     .badge-price {
-        background: rgba(16,185,129,0.15);
-        color: #34d399;
-        border: 1px solid rgba(16,185,129,0.25);
+        display: inline-block;
+        background: #f0fdf4;
+        color: #16a34a;
+        border: 1px solid #bbf7d0;
         border-radius: 8px;
         padding: 5px 12px;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 700;
     }
 
     .badge-stock-ok {
-        background: rgba(99,102,241,0.15);
-        color: #818cf8;
-        border: 1px solid rgba(99,102,241,0.2);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #eef2ff;
+        color: #6366f1;
+        border: 1px solid #c7d2fe;
         border-radius: 8px;
         padding: 5px 10px;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 700;
     }
 
     .badge-stock-low {
-        background: rgba(245,158,11,0.15);
-        color: #fbbf24;
-        border: 1px solid rgba(245,158,11,0.2);
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #fffbeb;
+        color: #d97706;
+        border: 1px solid #fde68a;
         border-radius: 8px;
         padding: 5px 10px;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 700;
     }
 
-    .btn-action {
+    .badge-stock-zero {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #fff1f2;
+        color: #e11d48;
+        border: 1px solid #fecdd3;
         border-radius: 8px;
+        padding: 5px 10px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    /* Action Buttons */
+    .actions-wrap { display: flex; align-items: center; gap: 8px; }
+
+    .btn-act {
+        border-radius: 9px;
         padding: 7px 14px;
         font-size: 12px;
-        font-weight: 600;
+        font-weight: 700;
         border: none;
         cursor: pointer;
         text-decoration: none;
@@ -195,188 +289,181 @@
         transition: all 0.2s;
     }
 
-    .btn-edit {
-        background: rgba(99,102,241,0.15);
-        color: #818cf8;
-        border: 1px solid rgba(99,102,241,0.2);
-    }
+    .btn-cart  { background: #eef2ff; color: #6366f1; }
+    .btn-cart:hover  { background: #e0e7ff; color: #4f46e5; }
 
-    .btn-edit:hover { background: rgba(99,102,241,0.3); color: #a5b4fc; }
+    .btn-edit  { background: #fffbeb; color: #d97706; }
+    .btn-edit:hover  { background: #fef3c7; color: #b45309; }
 
-    .btn-delete-action {
-        background: rgba(239,68,68,0.12);
-        color: #f87171;
-        border: 1px solid rgba(239,68,68,0.2);
-    }
+    .btn-del   { background: #fff1f2; color: #e11d48; }
+    .btn-del:hover   { background: #ffe4e6; color: #be123c; }
 
-    .btn-delete-action:hover { background: rgba(239,68,68,0.25); color: #fca5a5; }
+    /* Empty state */
+    .empty-cell { text-align: center; padding: 70px 20px; }
+    .empty-cell .empty-icon { font-size: 52px; margin-bottom: 12px; opacity: 0.35; }
+    .empty-cell p { color: #94a3b8; font-size: 14px; margin-top: 6px; }
 
-    .btn-cart-action {
-        background: rgba(16,185,129,0.12);
-        color: #34d399;
-        border: 1px solid rgba(16,185,129,0.2);
-    }
-
-    .btn-cart-action:hover { background: rgba(16,185,129,0.25); color: #6ee7b7; }
-
-    .empty-row td {
-        text-align: center;
-        padding: 60px 20px;
-        color: rgba(255,255,255,0.3);
-    }
-
-    .alert-success {
-        background: rgba(16,185,129,0.12);
-        border: 1px solid rgba(16,185,129,0.25);
-        color: #6ee7b7;
+    /* Alert */
+    .alert-ok {
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
         border-radius: 12px;
-    }
-
-    .btn-volunteers-link {
-        background: rgba(251,191,36,0.12);
-        border: 1px solid rgba(251,191,36,0.25);
-        color: #fbbf24;
-        border-radius: 10px;
-        padding: 9px 18px;
-        font-size: 13px;
-        font-weight: 700;
-        text-decoration: none;
-        display: inline-flex;
+        color: #166534;
+        padding: 14px 18px;
+        font-size: 14px;
+        display: flex;
         align-items: center;
-        gap: 7px;
-        transition: all 0.2s;
-    }
-
-    .btn-volunteers-link:hover {
-        background: rgba(251,191,36,0.25);
-        color: #fde68a;
+        gap: 10px;
+        margin-bottom: 24px;
     }
 </style>
 
-<div class="container-fluid px-4 py-4">
+<div class="dash-wrapper">
+    <div class="container-fluid">
 
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show mb-4 border-0" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+        @if(session('success'))
+        <div class="alert-ok">
+            <i class="bi bi-check-circle-fill" style="color:#16a34a; font-size:18px;"></i>
+            {{ session('success') }}
         </div>
-    @endif
+        @endif
 
-    <!-- Header -->
-    <div class="dash-header">
-        <div>
-            <div class="dash-title">⚡ Panel de Gestión</div>
-            <div class="dash-subtitle">Bienvenido, <strong style="color:#fff;">{{ Auth::user()->user_name }}</strong> — Administra tus productos</div>
+        <!-- Top Bar -->
+        <div class="dash-topbar">
+            <div>
+                <div class="dash-greeting">
+                    Panel de <span>Gestión</span>
+                </div>
+                <div class="dash-date">
+                    Hola, <strong>{{ Auth::user()->user_name }}</strong> — Administra tus productos
+                </div>
+            </div>
+            <div class="d-flex gap-2 flex-wrap">
+                <a href="{{ route('volunteers.admin') }}" class="btn-volunteers-btn">
+                    <i class="bi bi-people-fill"></i> Ver Voluntarios
+                </a>
+                <a href="{{ route('products.create') }}" class="btn-primary-new">
+                    <i class="bi bi-plus-lg"></i> Nuevo Producto
+                </a>
+            </div>
         </div>
-        <div class="d-flex gap-2">
-            <a href="{{ route('volunteers.admin') }}" class="btn-volunteers-link">
-                <i class="bi bi-people-fill"></i> Ver Voluntarios
-            </a>
-            <a href="{{ route('products.create') }}" class="btn-new">
-                <i class="bi bi-plus-lg"></i> Nuevo Producto
-            </a>
-        </div>
-    </div>
 
-    <!-- Stats -->
-    <div class="stats-grid">
-        <div class="stat-card blue">
-            <div class="stat-icon"><i class="bi bi-box-seam-fill"></i></div>
-            <div class="stat-value">{{ $products->count() }}</div>
-            <div class="stat-label">Total Productos</div>
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-icon-box icon-indigo"><i class="bi bi-box-seam-fill"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value">{{ $products->count() }}</div>
+                    <div class="stat-label">Total Productos</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-box icon-green"><i class="bi bi-check-circle-fill"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value">{{ $products->where('stock', '>', 0)->count() }}</div>
+                    <div class="stat-label">En Stock</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-box icon-amber"><i class="bi bi-exclamation-triangle-fill"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value">{{ $products->where('stock', '<=', 5)->where('stock', '>', 0)->count() }}</div>
+                    <div class="stat-label">Stock Bajo</div>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon-box icon-red"><i class="bi bi-x-circle-fill"></i></div>
+                <div class="stat-info">
+                    <div class="stat-value">{{ $products->where('stock', 0)->count() }}</div>
+                    <div class="stat-label">Sin Stock</div>
+                </div>
+            </div>
         </div>
-        <div class="stat-card green">
-            <div class="stat-icon"><i class="bi bi-check-circle-fill"></i></div>
-            <div class="stat-value">{{ $products->where('stock', '>', 0)->count() }}</div>
-            <div class="stat-label">En Stock</div>
-        </div>
-        <div class="stat-card amber">
-            <div class="stat-icon"><i class="bi bi-exclamation-triangle-fill"></i></div>
-            <div class="stat-value">{{ $products->where('stock', '<=', 5)->where('stock', '>', 0)->count() }}</div>
-            <div class="stat-label">Stock Bajo</div>
-        </div>
-        <div class="stat-card red">
-            <div class="stat-icon"><i class="bi bi-x-circle-fill"></i></div>
-            <div class="stat-value">{{ $products->where('stock', 0)->count() }}</div>
-            <div class="stat-label">Sin Stock</div>
-        </div>
-    </div>
 
-    <!-- Table -->
-    <div class="table-card">
-        <div class="table-card-header">
-            <div class="table-card-title">Lista de Productos</div>
-            <span style="font-size:12px; color:rgba(255,255,255,0.3);">{{ $products->count() }} registros</span>
-        </div>
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th style="padding-left:24px;">Producto</th>
-                        <th>Precio</th>
-                        <th>Stock</th>
-                        <th class="text-center">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse($products as $product)
-                    <tr>
-                        <td style="padding-left:24px;">
-                            <div class="d-flex align-items-center gap-3">
-                                @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" class="product-thumb">
-                                @else
-                                    <div class="product-thumb-placeholder">📦</div>
-                                @endif
-                                <div>
-                                    <div class="product-info-name">{{ $product->name }}</div>
-                                    <div class="product-info-desc">{{ Str::limit($product->description, 40) }}</div>
+        <!-- Table -->
+        <div class="table-card">
+            <div class="table-header">
+                <div class="table-title">📦 Lista de Productos</div>
+                <span class="table-count">{{ $products->count() }} productos</span>
+            </div>
+            <div style="overflow-x:auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="padding-left:28px; min-width:240px;">Producto</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th style="text-align:center;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($products as $product)
+                        <tr>
+                            <td style="padding-left:28px;">
+                                <div class="product-row">
+                                    @if($product->image)
+                                        <img src="{{ asset('storage/' . $product->image) }}" class="product-thumb">
+                                    @else
+                                        <div class="product-thumb-placeholder">📦</div>
+                                    @endif
+                                    <div>
+                                        <div class="product-name-big">{{ $product->name }}</div>
+                                        <div class="product-desc-small">{{ $product->description }}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td><span class="badge-price">${{ number_format($product->price, 0, ',', '.') }}</span></td>
-                        <td>
-                            @if($product->stock > 5)
-                                <span class="badge-stock-ok"><i class="bi bi-archive me-1"></i>{{ $product->stock }}</span>
-                            @else
-                                <span class="badge-stock-low"><i class="bi bi-exclamation me-1"></i>{{ $product->stock }}</span>
-                            @endif
-                        </td>
-                        <td>
-                            <div class="d-flex justify-content-center gap-2">
-                                <form action="{{ route('cart.add', $product->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn-action btn-cart-action">
-                                        <i class="bi bi-cart-plus"></i> Añadir
-                                    </button>
-                                </form>
-                                <a href="{{ route('products.edit', $product->id) }}" class="btn-action btn-edit">
-                                    <i class="bi bi-pencil"></i> Editar
-                                </a>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="delete-form">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn-action btn-delete-action btn-delete">
-                                        <i class="bi bi-trash"></i> Eliminar
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr class="empty-row">
-                        <td colspan="4">
-                            <div style="font-size:40px; margin-bottom:12px;">📭</div>
-                            <div style="font-weight:700; color:rgba(255,255,255,0.4); margin-bottom:6px;">No hay productos registrados</div>
-                            <a href="{{ route('products.create') }}" class="btn-new" style="display:inline-flex; margin-top:8px;">
-                                <i class="bi bi-plus-lg"></i> Crear primer producto
-                            </a>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+                            </td>
+                            <td>
+                                <span class="badge-price">${{ number_format($product->price, 0, ',', '.') }}</span>
+                            </td>
+                            <td>
+                                @if($product->stock > 10)
+                                    <span class="badge-stock-ok"><i class="bi bi-archive"></i>{{ $product->stock }} unid.</span>
+                                @elseif($product->stock > 0)
+                                    <span class="badge-stock-low"><i class="bi bi-exclamation-triangle"></i>{{ $product->stock }} unid.</span>
+                                @else
+                                    <span class="badge-stock-zero"><i class="bi bi-x-circle"></i>Sin stock</span>
+                                @endif
+                            </td>
+                            <td>
+                                <div class="actions-wrap" style="justify-content:center;">
+                                    <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn-act btn-cart">
+                                            <i class="bi bi-cart-plus"></i> Añadir
+                                        </button>
+                                    </form>
+                                    <a href="{{ route('products.edit', $product->id) }}" class="btn-act btn-edit">
+                                        <i class="bi bi-pencil-fill"></i> Editar
+                                    </a>
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn-act btn-del btn-delete">
+                                            <i class="bi bi-trash-fill"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="4">
+                                <div class="empty-cell">
+                                    <div class="empty-icon">📭</div>
+                                    <strong style="font-size:16px; color:#475569;">No hay productos aún</strong>
+                                    <p>Empieza añadiendo tu primer producto.</p>
+                                    <a href="{{ route('products.create') }}" class="btn-primary-new" style="display:inline-flex; margin-top:12px;">
+                                        <i class="bi bi-plus-lg"></i> Crear producto
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
+
     </div>
 </div>
 
@@ -389,11 +476,9 @@
             title: '¿Eliminar producto?',
             text: "Esta acción no se puede revertir",
             icon: 'warning',
-            background: '#1a1d2e',
-            color: '#fff',
             showCancelButton: true,
-            confirmButtonColor: '#ef4444',
-            cancelButtonColor: '#374151',
+            confirmButtonColor: '#e11d48',
+            cancelButtonColor: '#64748b',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar'
         }).then((result) => {

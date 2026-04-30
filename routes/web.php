@@ -14,6 +14,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/comunidad-12-octubre', [ProductController::class, 'comunidad'])->name('products.comunidad');
     Route::post('/comunidad-12-octubre/voluntariado/{product}', [\App\Http\Controllers\VolunteerController::class, 'store'])->name('volunteers.store');
     Route::get('/admin/voluntarios', [\App\Http\Controllers\VolunteerController::class, 'admin'])->name('volunteers.admin');
+    Route::delete('/admin/voluntarios/{id}', [\App\Http\Controllers\VolunteerController::class, 'destroy'])->name('volunteers.destroy');
     Route::resource('products', ProductController::class);
 
     // Profile Routes

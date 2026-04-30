@@ -42,4 +42,10 @@ class VolunteerController extends Controller
                         ->get();
         return view('volunteers.admin', compact('volunteers'));
     }
+
+    public function destroy($id)
+    {
+        \App\Models\Volunteer::findOrFail($id)->delete();
+        return redirect()->route('volunteers.admin')->with('success', 'Registro de voluntariado eliminado.');
+    }
 }

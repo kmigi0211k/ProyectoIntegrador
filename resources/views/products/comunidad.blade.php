@@ -2,11 +2,11 @@
 
 @section('content')
 <style>
-    body { background: #0f1117 !important; }
+    body { background: #f8fafc !important; }
 
     .community-hero {
-        background: linear-gradient(135deg, #0d1b2a, #1b2838, #0f3460);
-        border: 1px solid rgba(255,255,255,0.06);
+        background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        border: 1px solid #bbf7d0;
         border-radius: 24px;
         padding: 52px 48px;
         margin-bottom: 36px;
@@ -27,34 +27,34 @@
         display: inline-flex;
         align-items: center;
         gap: 6px;
-        background: rgba(16,185,129,0.12);
-        border: 1px solid rgba(16,185,129,0.25);
+        background: #d1fae5;
+        border: 1px solid #a7f3d0;
         border-radius: 50px;
         padding: 6px 14px;
         font-size: 12px;
-        color: #34d399;
-        font-weight: 600;
+        color: #059669;
+        font-weight: 700;
         margin-bottom: 16px;
     }
 
     .hero-title {
         font-size: 2.4rem;
         font-weight: 800;
-        color: #fff;
+        color: #064e3b;
         line-height: 1.2;
         letter-spacing: -0.5px;
         margin-bottom: 12px;
     }
 
     .hero-title span {
-        background: linear-gradient(135deg, #34d399, #059669);
+        background: linear-gradient(135deg, #059669, #047857);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
     }
 
     .hero-desc {
-        color: rgba(255,255,255,0.5);
+        color: #065f46;
         font-size: 15px;
         max-width: 500px;
         line-height: 1.6;
@@ -65,7 +65,7 @@
         gap: 24px;
         margin-top: 28px;
         padding-top: 24px;
-        border-top: 1px solid rgba(255,255,255,0.07);
+        border-top: 1px solid #bbf7d0;
         flex-wrap: wrap;
     }
 
@@ -74,90 +74,99 @@
         align-items: center;
         gap: 10px;
         font-size: 13px;
-        color: rgba(255,255,255,0.5);
+        color: #065f46;
+        font-weight: 600;
     }
 
     .step-num {
         width: 28px; height: 28px;
-        background: rgba(16,185,129,0.15);
-        border: 1px solid rgba(16,185,129,0.3);
+        background: #10b981;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 12px;
         font-weight: 700;
-        color: #34d399;
+        color: #fff;
         flex-shrink: 0;
+        box-shadow: 0 2px 4px rgba(16,185,129,0.3);
     }
 
-    /* Cards */
+    /* Cards Light Design */
     .volunteer-card {
-        background: #1a1d2e;
-        border: 1px solid rgba(255,255,255,0.06);
+        background: #fff;
+        border: 1px solid #e2e8f0;
         border-radius: 20px;
         overflow: hidden;
         height: 100%;
-        transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        display: flex;
+        flex-direction: column;
     }
 
     .volunteer-card:hover {
         transform: translateY(-8px);
-        border-color: rgba(16,185,129,0.35);
-        box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(16,185,129,0.15);
+        border-color: #cbd5e1;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
 
     .card-img-wrap {
         position: relative;
-        height: 200px;
+        height: 220px;
         overflow: hidden;
+        background: #f8fafc;
     }
 
     .card-img-wrap img {
         width: 100%; height: 100%;
         object-fit: cover;
-        transition: transform 0.5s ease;
+        transition: transform 0.6s ease;
     }
 
-    .volunteer-card:hover .card-img-wrap img { transform: scale(1.08); }
+    .volunteer-card:hover .card-img-wrap img { transform: scale(1.05); }
 
     .card-img-placeholder {
         width: 100%; height: 100%;
-        background: linear-gradient(135deg, #1e2130, #252840);
+        background: #f1f5f9;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 56px;
-        opacity: 0.4;
+        opacity: 0.5;
     }
 
     .solidarity-badge {
         position: absolute;
         top: 14px; left: 14px;
-        background: rgba(16,185,129,0.2);
-        border: 1px solid rgba(16,185,129,0.35);
-        backdrop-filter: blur(10px);
+        background: #10b981;
         border-radius: 8px;
         padding: 5px 10px;
         font-size: 11px;
         font-weight: 700;
-        color: #34d399;
+        color: #fff;
+        box-shadow: 0 2px 4px rgba(16,185,129,0.3);
     }
 
     .card-body-custom {
-        padding: 20px;
+        padding: 24px 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
     }
 
     .product-name {
-        font-size: 16px;
-        font-weight: 700;
-        color: #f1f5f9;
-        margin-bottom: 6px;
+        font-size: 17px;
+        font-weight: 800;
+        color: #0f172a;
+        margin-bottom: 8px;
+        line-height: 1.3;
     }
 
     .product-desc {
-        font-size: 12px;
-        color: rgba(255,255,255,0.4);
+        font-size: 13px;
+        color: #64748b;
         line-height: 1.5;
         margin-bottom: 16px;
         display: -webkit-box;
@@ -167,6 +176,7 @@
     }
 
     .btn-postulate {
+        margin-top: auto;
         width: 100%;
         background: linear-gradient(135deg, #10b981, #059669);
         border: none;
@@ -189,59 +199,68 @@
         box-shadow: 0 8px 25px rgba(16,185,129,0.5);
     }
 
-    /* Modal */
+    /* Modal Light Design */
     .modal-content {
-        background: #1a1d2e;
-        border: 1px solid rgba(255,255,255,0.1);
+        background: #fff;
+        border: none;
         border-radius: 20px;
-        color: #fff;
+        color: #0f172a;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
 
     .modal-header {
-        border-color: rgba(255,255,255,0.07);
+        border-color: #f1f5f9;
         padding: 20px 24px;
+        background: #f8fafc;
+        border-radius: 20px 20px 0 0;
     }
 
-    .modal-title { font-weight: 700; font-size: 16px; }
-    .btn-close { filter: invert(1); }
+    .modal-title { font-weight: 800; font-size: 16px; color: #0f172a; }
+    .btn-close { filter: none; }
 
     .modal-body { padding: 24px; }
     .modal-footer {
-        border-color: rgba(255,255,255,0.07);
+        border-color: #f1f5f9;
         padding: 16px 24px;
+        background: #f8fafc;
+        border-radius: 0 0 20px 20px;
     }
 
     .form-label-modal {
         font-size: 11px;
-        font-weight: 700;
-        color: rgba(255,255,255,0.5);
+        font-weight: 800;
+        color: #64748b;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-bottom: 7px;
     }
 
     .form-control-dark {
-        background: rgba(255,255,255,0.07);
-        border: 1px solid rgba(255,255,255,0.1);
+        background: #fff;
+        border: 1px solid #cbd5e1;
         border-radius: 10px;
-        color: #fff;
+        color: #0f172a;
         padding: 11px 14px;
         font-size: 14px;
         width: 100%;
         transition: all 0.3s;
     }
 
-    .form-control-dark::placeholder { color: rgba(255,255,255,0.25); }
+    .form-control-dark::placeholder { color: #94a3b8; }
     .form-control-dark:focus {
         outline: none;
-        border-color: rgba(16,185,129,0.5);
-        box-shadow: 0 0 0 3px rgba(16,185,129,0.12);
-        background: rgba(255,255,255,0.1);
-        color: #fff;
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16,185,129,0.15);
+        background: #fff;
+    }
+
+    .form-control-dark option {
+        background-color: #fff;
+        color: #0f172a;
     }
 
     .btn-confirm {
-        background: linear-gradient(135deg, #10b981, #059669);
+        background: #10b981;
         border: none;
         border-radius: 10px;
         padding: 11px 24px;
@@ -250,27 +269,38 @@
         color: #fff;
         cursor: pointer;
         transition: all 0.3s;
+        box-shadow: 0 4px 6px rgba(16,185,129,0.2);
     }
 
-    .btn-confirm:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-confirm:hover { background: #059669; transform: translateY(-1px); box-shadow: 0 6px 12px rgba(16,185,129,0.3); }
 
     .btn-cancel-modal {
-        background: rgba(255,255,255,0.06);
-        border: 1px solid rgba(255,255,255,0.1);
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
         border-radius: 10px;
         padding: 11px 20px;
         font-size: 14px;
-        color: rgba(255,255,255,0.6);
+        font-weight: 600;
+        color: #475569;
         cursor: pointer;
         transition: all 0.2s;
     }
 
+    .btn-cancel-modal:hover { background: #e2e8f0; }
+
     .section-header { margin-bottom: 24px; }
-    .section-title { font-size: 18px; font-weight: 700; color: #fff; }
-    .section-sub { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 3px; }
+    .section-title { font-size: 18px; font-weight: 800; color: #0f172a; }
+    .section-sub { font-size: 13px; color: #64748b; margin-top: 3px; }
 </style>
 
 <div class="container-fluid px-4 py-4">
+
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show rounded-4 border-0 shadow-sm mb-4" role="alert">
+            <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
 
     <!-- Hero -->
     <div class="community-hero">
@@ -279,8 +309,9 @@
                 <div class="hero-badge"><i class="bi bi-heart-fill"></i> Comunidad "12 de Octubre"</div>
                 <h1 class="hero-title">Mercado<br><span>Solidario</span></h1>
                 <p class="hero-desc">
-                    Adquiere productos sin costo monetario comprometiendo horas de servicio 
-                    a nuestra comunidad. Juntos construimos un barrio mejor.
+                    Adquiere un producto totalmente gratis comprometiendo horas de servicio 
+                    para realizar obras benéficas en nuestro barrio 12 de Octubre. 
+                    ¡Juntos construimos una mejor comunidad!
                 </p>
                 <div class="how-it-works">
                     <div class="step">
@@ -293,7 +324,7 @@
                     </div>
                     <div class="step">
                         <div class="step-num">3</div>
-                        <span>Coordina por WhatsApp</span>
+                        <span>Espera confirmación del administrador</span>
                     </div>
                 </div>
             </div>
@@ -370,6 +401,12 @@
                                     class="form-control-dark" min="1" max="100" required
                                     placeholder="Ej: 10">
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label-modal">Número de Teléfono (WhatsApp)</label>
+                                <input type="text" name="phone"
+                                    class="form-control-dark" required
+                                    placeholder="Ej: 3001234567">
+                            </div>
                             <div>
                                 <label class="form-label-modal">Detalles adicionales (Opcional)</label>
                                 <textarea name="details" class="form-control-dark" rows="3"
@@ -379,7 +416,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn-cancel-modal" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn-confirm">
-                                <i class="bi bi-whatsapp me-1"></i> Confirmar y Contactar
+                                <i class="bi bi-check-lg me-1"></i> Confirmar Postulación
                             </button>
                         </div>
                     </div>

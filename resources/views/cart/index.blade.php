@@ -41,12 +41,12 @@
                                             <div class="fw-bold text-dark">{{ $details['name'] }}</div>
                                         </div>
                                     </td>
-                                    <td>${{ number_format($details['price'], 2) }}</td>
+                                    <td>$ {{ number_format($details['price'], 0, ',', '.') }} COP</td>
                                     <td>
                                         <input type="number" value="{{ $details['quantity'] }}" class="form-control form-control-sm text-center quantity update-cart" data-id="{{ $id }}" style="width: 70px;">
                                     </td>
                                     <td class="fw-bold text-dark">
-                                        ${{ number_format($details['price'] * $details['quantity'], 2) }}
+                                        $ {{ number_format($details['price'] * $details['quantity'], 0, ',', '.') }} COP
                                     </td>
                                     <td class="pe-4 text-center">
                                         <button class="btn btn-outline-danger btn-sm rounded-pill px-3 remove-from-cart" data-id="{{ $id }}">
@@ -60,7 +60,7 @@
                             <tr>
                                 <td colspan="3" class="text-end fw-bold ps-4">Total:</td>
                                 <td colspan="2" class="fw-bold text-primary fs-5 pe-4 ps-1">
-                                    ${{ number_format($total, 2) }}
+                                    $ {{ number_format($total, 0, ',', '.') }} COP
                                 </td>
                             </tr>
                         </tfoot>

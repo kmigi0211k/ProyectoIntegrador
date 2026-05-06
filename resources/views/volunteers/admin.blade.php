@@ -162,6 +162,7 @@
     .chip-help  { background: #eef2ff; color: #6366f1; }
     .chip-hours { background: #f0fdf4; color: #16a34a; }
     .chip-pending { background: #fffbeb; color: #d97706; }
+    .chip-rose { background: #fff1f2; color: #e11d48; }
 
     .date-txt { font-size: 12px; color: #94a3b8; }
 
@@ -264,7 +265,7 @@
                         <tr>
                             <th style="padding-left:24px;">#</th>
                             <th>Voluntario</th>
-                            <th>Producto</th>
+                            <th>Producto Requerido</th>
                             <th>Tipo de Ayuda</th>
                             <th>Horas</th>
                             <th>Estado</th>
@@ -280,15 +281,40 @@
                             <td>
                                 <div class="user-chip">
                                     <div class="avatar">{{ strtoupper(substr($volunteer->user->user_name ?? 'U', 0, 1)) }}</div>
-                                    <div class="uname">{{ $volunteer->user->user_name ?? 'Usuario eliminado' }}</div>
+                                    <div>
+                                        <div class="uname">{{ $volunteer->user->person->names ?? $volunteer->user->user_name ?? 'Usuario eliminado' }}</div>
+                                        <div style="font-size: 11px; color: #94a3b8;">{{ $volunteer->user->person->email ?? 'Sin correo' }}</div>
+                                        @if($volunteer->phone)
+                                            <div style="font-size: 11px; font-weight: 600; color: #10b981; margin-top: 2px;">
+                                                <i class="bi bi-whatsapp"></i> {{ $volunteer->phone }}
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </td>
                             <td>
-                                <span class="product-name-cell">📦 {{ $volunteer->product->name ?? 'Producto eliminado' }}</span>
+                                <div class="d-flex align-items-center gap-2" style="max-width: 180px;">
+                                    @if($volunteer->product && $volunteer->product->image)
+                                        <img src="{{ asset('storage/' . $volunteer->product->image) }}" class="rounded shadow-sm flex-shrink-0" style="width: 34px; height: 34px; object-fit: cover;">
+                                    @else
+                                        <div class="rounded bg-light d-flex align-items-center justify-content-center border flex-shrink-0" style="width: 34px; height: 34px;">
+                                            <i class="bi bi-box text-muted" style="font-size:14px;"></i>
+                                        </div>
+                                    @endif
+                                    <span class="product-name-cell text-truncate" title="{{ $volunteer->product->name ?? 'Eliminado' }}">{{ $volunteer->product->name ?? 'Producto Eliminado' }}</span>
+                                </div>
                             </td>
                             <td><span class="chip chip-help">{{ $volunteer->help_type }}</span></td>
                             <td><span class="chip chip-hours"><i class="bi bi-clock me-1"></i>{{ $volunteer->hours_committed }}h</span></td>
-                            <td><span class="chip chip-pending">⏳ {{ ucfirst($volunteer->status) }}</span></td>
+                            <td>
+                                @if($volunteer->status == 'accepted')
+                                    <span class="chip chip-hours">✅ Aceptado</span>
+                                @elseif($volunteer->status == 'rejected')
+                                    <span class="chip chip-rose">❌ Rechazado</span>
+                                @else
+                                    <span class="chip chip-pending">⏳ Pendiente</span>
+                                @endif
+                            </td>
                             <td><span class="date-txt">{{ $volunteer->created_at->format('d/m/Y') }}</span></td>
                             <td>
                                 <span style="font-size:12px; color:#94a3b8;">
@@ -296,18 +322,38 @@
                                 </span>
                             </td>
                             <td style="text-align:center;">
-                                <form action="{{ route('volunteers.destroy', $volunteer->id) }}" method="POST" class="vol-del-form">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="button" class="btn-del-vol btn-del-volunteer">
-                                        <i class="bi bi-trash-fill"></i> Eliminar
-                                    </button>
-                                </form>
+                                <div class="d-flex justify-content-center gap-2">
+                                    @if($volunteer->status == 'pending')
+                                        <form action="{{ route('volunteers.updateStatus', $volunteer->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" value="accepted">
+                                            <button type="submit" class="btn btn-sm btn-success fw-bold" style="border-radius:8px;">
+                                                <i class="bi bi-check-lg"></i>
+                                            </button>
+                                        </form>
+                                        <form action="{{ route('volunteers.updateStatus', $volunteer->id) }}" method="POST">
+                                            @csrf
+                                            @method('PATCH')
+                                            <input type="hidden" name="status" value="rejected">
+                                            <button type="submit" class="btn btn-sm btn-warning fw-bold" style="border-radius:8px;">
+                                                <i class="bi bi-x-lg"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+                                    <form action="{{ route('volunteers.destroy', $volunteer->id) }}" method="POST" class="vol-del-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-sm btn-danger fw-bold btn-del-volunteer" style="border-radius:8px;">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="9">
+                            <td colspan="10">
                                 <div class="empty-row">
                                     <div class="empty-icon">🤝</div>
                                     <strong style="font-size:16px; color:#475569;">Sin registros aún</strong>

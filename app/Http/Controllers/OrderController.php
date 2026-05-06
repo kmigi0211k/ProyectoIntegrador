@@ -11,6 +11,23 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $orders = Order::with('items.product')
+            ->where('user_id', Auth::id())
+            ->latest()
+            ->get();
+        return view('orders.index', compact('orders'));
+    }
+
+    public function adminOrders()
+    {
+        $orders = Order::with(['user.person', 'items.product'])
+            ->latest()
+            ->get();
+        return view('orders.admin', compact('orders'));
+    }
+
     public function checkout()
     {
         $cart = session()->get('cart', []);
@@ -113,5 +130,14 @@ class OrderController extends Controller
             abort(403);
         }
         return view('orders.success', compact('order'));
+    }
+
+    public function destroy($id)
+    {
+        $order = Order::findOrFail($id);
+        // Delete related items first to avoid foreign key constraints issues (if not cascading)
+        $order->items()->delete();
+        $order->delete();
+        return redirect()->back()->with('success', 'Pedido eliminado correctamente.');
     }
 }

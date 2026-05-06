@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libonig-dev \
     libxml2-dev \
+    libpq-dev \
     zip \
     unzip \
     git \
@@ -17,7 +18,7 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Instalar extensiones de PHP
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
 
 # Habilitar mod_rewrite de Apache
 RUN a2enmod rewrite
@@ -46,5 +47,9 @@ RUN mkdir -p /var/www/html/database && touch /var/www/html/database/database.sql
 # Exponer el puerto 80
 EXPOSE 80
 
-# Comando para iniciar Apache
-CMD ["apache2-foreground"]
+# Copiar script de inicio y darle permisos
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+# Comando para iniciar la aplicación
+CMD ["/usr/local/bin/start.sh"]

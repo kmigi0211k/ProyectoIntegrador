@@ -57,6 +57,13 @@
                             </div>
                         </div>
 
+                        <div class="mb-3 form-check mt-3">
+                            <input type="checkbox" name="is_active" class="form-check-input" id="isActiveCheck" checked>
+                            <label class="form-check-label fw-bold" for="isActiveCheck">
+                                Producto Activo (visible en el catálogo)
+                            </label>
+                        </div>
+
                         <div class="d-grid gap-2 mt-4">
                             <button class="btn btn-primary btn-lg rounded-pill shadow-sm">
                                 <i class="bi bi-save me-2"></i>Guardar Producto

@@ -34,13 +34,18 @@
                             <i class="bi bi-shop me-1"></i>Tienda
                         </a>
                     </li>
-                    @auth
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('products.comunidad') ? 'active' : '' }}" href="{{ route('products.comunidad') }}">
+                            <i class="bi bi-heart-fill me-1 text-danger"></i>Voluntariado
+                        </a>
+                    </li>
+                    @if(Auth::check() && Auth::user()->isAdmin())
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('products.dashboard') ? 'active' : '' }}" href="{{ route('products.dashboard') }}">
                             <i class="bi bi-speedometer2 me-1"></i>Panel
                         </a>
                     </li>
-                    @endauth
+                    @endif
                 </ul>
                 
                 <div class="d-flex align-items-center gap-3">
@@ -53,6 +58,18 @@
                                 </span>
                             @endif
                         </a>
+                        @if(Auth::user()->isAdmin())
+                            <a href="{{ route('orders.admin') }}" class="btn btn-outline-light btn-sm">
+                                <i class="bi bi-cart-check-fill me-1"></i>Historial de compras
+                            </a>
+                        @else
+                            <a href="{{ route('orders.index') }}" class="btn btn-outline-light btn-sm">
+                                <i class="bi bi-bag-check me-1"></i>Mis Compras
+                            </a>
+                            <a href="{{ route('volunteers.myApplications') }}" class="btn btn-outline-light btn-sm">
+                                <i class="bi bi-heart-half me-1"></i>Mis Postulaciones
+                            </a>
+                        @endif
                         <a href="{{ route('profile.edit') }}" class="btn btn-outline-light btn-sm">
                             <i class="bi bi-person me-1"></i>Perfil ({{ Auth::user()->user_name }})
                         </a>

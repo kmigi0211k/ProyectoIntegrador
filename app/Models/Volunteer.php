@@ -16,6 +16,7 @@ class Volunteer extends Model
         'hours_committed',
         'details',
         'status',
+        'phone',
     ];
 
     public function user()

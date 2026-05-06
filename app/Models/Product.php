@@ -30,5 +30,6 @@ class Product extends Model
         'stock',
         'image',
         'creation_date',
+        'is_active',
     ];
 }

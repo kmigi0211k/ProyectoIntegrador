@@ -316,6 +316,46 @@
         gap: 10px;
         margin-bottom: 24px;
     }
+
+    /* iOS Switch */
+    .ios-switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+        margin: 0;
+    }
+    .ios-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background-color: #cbd5e1;
+        transition: .3s;
+        border-radius: 24px;
+    }
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .3s;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+    input:checked + .slider {
+        background-color: #10b981;
+    }
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
 </style>
 
 <div class="dash-wrapper">
@@ -339,6 +379,9 @@
                 </div>
             </div>
             <div class="d-flex gap-2 flex-wrap">
+                <a href="{{ route('orders.admin') }}" class="btn-volunteers-btn" style="color: #10b981; border-color: #a7f3d0;">
+                    <i class="bi bi-cart-check-fill"></i> Historial de compras
+                </a>
                 <a href="{{ route('volunteers.admin') }}" class="btn-volunteers-btn">
                     <i class="bi bi-people-fill"></i> Ver Voluntarios
                 </a>
@@ -393,6 +436,7 @@
                             <th style="padding-left:28px; min-width:240px;">Producto</th>
                             <th>Precio</th>
                             <th>Stock</th>
+                            <th style="text-align:center;">Estado</th>
                             <th style="text-align:center;">Acciones</th>
                         </tr>
                     </thead>
@@ -413,7 +457,7 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="badge-price">${{ number_format($product->price, 0, ',', '.') }}</span>
+                                <span class="badge-price">$ {{ number_format($product->price, 0, ',', '.') }} COP</span>
                             </td>
                             <td>
                                 @if($product->stock > 10)
@@ -424,14 +468,18 @@
                                     <span class="badge-stock-zero"><i class="bi bi-x-circle"></i>Sin stock</span>
                                 @endif
                             </td>
+                            <td style="text-align:center;">
+                                <form action="{{ route('products.toggleActive', $product->id) }}" method="POST" class="toggle-active-form">
+                                    @csrf
+                                    @method('PATCH')
+                                    <label class="ios-switch">
+                                        <input type="checkbox" onchange="this.form.submit()" {{ $product->is_active ? 'checked' : '' }}>
+                                        <span class="slider"></span>
+                                    </label>
+                                </form>
+                            </td>
                             <td>
                                 <div class="actions-wrap" style="justify-content:center;">
-                                    <form action="{{ route('cart.add', $product->id) }}" method="POST">
-                                        @csrf
-                                        <button type="submit" class="btn-act btn-cart">
-                                            <i class="bi bi-cart-plus"></i> Añadir
-                                        </button>
-                                    </form>
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn-act btn-edit">
                                         <i class="bi bi-pencil-fill"></i> Editar
                                     </a>

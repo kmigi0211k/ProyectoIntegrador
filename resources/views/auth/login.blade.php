@@ -18,7 +18,7 @@
 
         body {
             min-height: 100vh;
-            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
+            background: linear-gradient(-45deg, #f8fafc, #eef2ff, #f1f5f9, #e0e7ff);
             background-size: 400% 400%;
             animation: gradientShift 10s ease infinite;
             display: flex;
@@ -40,7 +40,7 @@
             position: fixed;
             width: 400px;
             height: 400px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent 70%);
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.08), transparent 70%);
             border-radius: 50%;
             top: -100px;
             right: -100px;
@@ -52,7 +52,7 @@
             position: fixed;
             width: 350px;
             height: 350px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.25), transparent 70%);
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.06), transparent 70%);
             border-radius: 50%;
             bottom: -80px;
             left: -80px;
@@ -65,15 +65,13 @@
         }
 
         .login-card {
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #fff;
+            border: 1px solid #e2e8f0;
             border-radius: 24px;
             padding: 48px 44px;
             width: 100%;
             max-width: 420px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
             position: relative;
             z-index: 10;
             animation: fadeInUp 0.6s ease;
@@ -101,17 +99,17 @@
             align-items: center;
             justify-content: center;
             font-size: 20px;
-            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.5);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
 
         .brand-name {
             font-size: 22px;
             font-weight: 800;
-            color: #fff;
+            color: #0f172a;
             letter-spacing: -0.5px;
         }
 
-        .brand-name span { color: #818cf8; }
+        .brand-name span { color: #4f46e5; }
 
         .login-title {
             text-align: center;
@@ -120,20 +118,20 @@
 
         .login-title h1 {
             font-size: 24px;
-            font-weight: 700;
-            color: #fff;
+            font-weight: 800;
+            color: #0f172a;
             margin-bottom: 6px;
         }
 
         .login-title p {
             font-size: 14px;
-            color: rgba(255, 255, 255, 0.5);
+            color: #64748b;
         }
 
         .form-label {
             font-size: 13px;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 0.75);
+            font-weight: 700;
+            color: #475569;
             margin-bottom: 8px;
             letter-spacing: 0.3px;
         }
@@ -147,35 +145,35 @@
             left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.4);
+            color: #94a3b8;
             font-size: 16px;
             z-index: 5;
         }
 
         .form-control {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #fff;
+            border: 1px solid #cbd5e1;
             border-radius: 12px;
-            color: #fff;
+            color: #0f172a;
             padding: 13px 14px 13px 42px;
             font-size: 14px;
             transition: all 0.3s ease;
         }
 
-        .form-control::placeholder { color: rgba(255, 255, 255, 0.3); }
+        .form-control::placeholder { color: #94a3b8; }
         .form-control:focus {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(99, 102, 241, 0.7);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-            color: #fff;
+            background: #fff;
+            border-color: #6366f1;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+            color: #0f172a;
             outline: none;
         }
 
         .form-control.is-invalid {
-            border-color: rgba(239, 68, 68, 0.7);
+            border-color: #ef4444;
         }
 
-        .text-danger { color: #f87171 !important; font-size: 12px; margin-top: 6px; }
+        .text-danger { color: #ef4444 !important; font-size: 12px; margin-top: 6px; }
 
         .remember-row {
             display: flex;
@@ -185,8 +183,8 @@
         }
 
         .form-check-input {
-            background-color: rgba(255,255,255,0.1);
-            border-color: rgba(255,255,255,0.3);
+            background-color: #fff;
+            border-color: #cbd5e1;
         }
 
         .form-check-input:checked {
@@ -196,17 +194,18 @@
 
         .form-check-label {
             font-size: 13px;
-            color: rgba(255,255,255,0.6);
+            color: #475569;
         }
 
         .forgot-link {
             font-size: 13px;
-            color: #818cf8;
+            color: #4f46e5;
             text-decoration: none;
             transition: color 0.2s;
+            font-weight: 600;
         }
 
-        .forgot-link:hover { color: #a5b4fc; text-decoration: underline; }
+        .forgot-link:hover { color: #3730a3; text-decoration: underline; }
 
         .btn-login {
             width: 100%;
@@ -219,13 +218,13 @@
             font-weight: 700;
             letter-spacing: 0.3px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
             cursor: pointer;
         }
 
         .btn-login:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.55);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
             background: linear-gradient(135deg, #4f46e5, #7c3aed);
         }
 
@@ -242,25 +241,25 @@
             content: '';
             flex: 1;
             height: 1px;
-            background: rgba(255,255,255,0.1);
+            background: #e2e8f0;
         }
 
-        .divider span { font-size: 12px; color: rgba(255,255,255,0.35); }
+        .divider span { font-size: 12px; color: #64748b; font-weight: 600; }
 
         .register-link {
             text-align: center;
             font-size: 14px;
-            color: rgba(255,255,255,0.5);
+            color: #64748b;
         }
 
         .register-link a {
-            color: #818cf8;
-            font-weight: 600;
+            color: #4f46e5;
+            font-weight: 700;
             text-decoration: none;
             transition: color 0.2s;
         }
 
-        .register-link a:hover { color: #a5b4fc; }
+        .register-link a:hover { color: #3730a3; text-decoration: underline; }
 
         .alert-success-custom {
             background: rgba(52, 211, 153, 0.15);

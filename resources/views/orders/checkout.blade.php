@@ -72,7 +72,7 @@
                                     <h6 class="mb-0 fw-bold">{{ $item['name'] }}</h6>
                                     <span class="text-muted">Cantidad: {{ $item['quantity'] }}</span>
                                 </div>
-                                <span class="fw-bold">${{ number_format($item['price'] * $item['quantity'], 2) }}</span>
+                                <span class="fw-bold">$ {{ number_format($item['price'] * $item['quantity'], 0, ',', '.') }} COP</span>
                             </li>
                         @endforeach
                     </ul>
@@ -80,7 +80,7 @@
                 <div class="card-footer bg-light border-0 py-3 rounded-bottom-4">
                     <div class="d-flex justify-content-between mb-2">
                         <span>Subtotal</span>
-                        <span>${{ number_format($total, 2) }}</span>
+                        <span>$ {{ number_format($total, 0, ',', '.') }} COP</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3 text-success fw-bold">
                         <span>Envío</span>
@@ -89,7 +89,7 @@
                     <hr>
                     <div class="d-flex justify-content-between mb-4">
                         <span class="h5 mb-0 fw-bold">Total</span>
-                        <span class="h5 mb-0 fw-bold text-primary">${{ number_format($total, 2) }}</span>
+                        <span class="h5 mb-0 fw-bold text-primary">$ {{ number_format($total, 0, ',', '.') }} COP</span>
                     </div>
                     <button type="submit" form="checkout-form" class="btn btn-primary btn-lg w-100 rounded-pill shadow-sm fw-bold">
                         Confirmar Pedido <i class="bi bi-check-circle ms-2"></i>

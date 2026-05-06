@@ -8,10 +8,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 
     /**
      * @OA\Get(
@@ -27,11 +24,19 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::all();
+        $products = Product::where('is_active', true)->get();
         if ($request->wantsJson()) {
             return response()->json($products);
         }
         return view('products.index', compact('products'));
+    }
+
+    public function show(Product $product)
+    {
+        if (!$product->is_active && (!Auth::check() || !Auth::user()->isAdmin())) {
+            abort(404);
+        }
+        return view('products.show', compact('product'));
     }
 
     public function dashboard()
@@ -82,6 +87,8 @@ class ProductController extends Controller
             $data['image'] = $request->file('image')->store('products', 'public');
         }
 
+        $data['is_active'] = $request->has('is_active');
+
         $product = Product::create($data);
 
         if ($request->wantsJson()) {
@@ -113,6 +120,8 @@ class ProductController extends Controller
             $data['image'] = $request->file('image')->store('products', 'public');
         }
 
+        $data['is_active'] = $request->has('is_active');
+
         $product->update($data);
 
         return redirect()->route('products.dashboard')->with('success', 'Producto actualizado exitosamente.');
@@ -125,6 +134,12 @@ class ProductController extends Controller
         }
         $product->delete();
         return redirect()->route('products.dashboard')->with('success', 'Producto eliminado exitosamente.');
+    }
+
+    public function toggleActive(Product $product)
+    {
+        $product->update(['is_active' => !$product->is_active]);
+        return redirect()->back()->with('success', 'Estado del producto actualizado.');
     }
 
     public function comunidad()

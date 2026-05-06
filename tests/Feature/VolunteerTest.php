@@ -21,6 +21,8 @@ class VolunteerTest extends TestCase
                          ->post(route('volunteers.store', $product->id), [
                              'help_type' => 'Ayuda Comunitaria',
                              'hours_committed' => 10,
+                             'phone' => '3001234567',
+                             'details' => 'Quiero ayudar en lo que sea necesario'
                          ]);
 
         $response->assertRedirect();

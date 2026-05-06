@@ -23,6 +23,7 @@ class ProductFactory extends Factory
             'stock' => $this->faker->numberBetween(0, 100),
             'image' => 'products/test.jpg',
             'creation_date' => now(),
+            'is_active' => true,
         ];
     }
 }

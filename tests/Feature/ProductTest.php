@@ -18,7 +18,9 @@ class ProductTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->user = User::factory()->create();
+        // Create the Admin role required by IsAdmin middleware
+        $adminRole = \App\Models\Role::create(['description' => 'Admin', 'status' => 1]);
+        $this->user = User::factory()->create(['role_id' => $adminRole->id]);
     }
 
     /** @test */

@@ -376,7 +376,7 @@
                         @endif
 
                         @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                            <img src="{{ str_starts_with($product->image, 'http') ? $product->image : asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                         @else
                             <div class="product-placeholder">📦</div>
                         @endif

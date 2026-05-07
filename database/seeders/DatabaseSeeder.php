@@ -50,11 +50,12 @@ class DatabaseSeeder extends Seeder
         \App\Models\Product::firstOrCreate(
             ['name' => 'Laptop Dell XPS 13'],
             [
-                'description' => 'Laptop ultradelgada con procesador Intel i7',
+                'description' => 'Laptop ultradelgada con procesador Intel i7, 16GB RAM y 512GB SSD. Perfecta para productividad y diseño.',
                 'price' => 1500000,
                 'stock' => 25,
                 'creation_date' => '2024-11-26',
-                'is_active' => true
+                'is_active' => true,
+                'image' => 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=800&q=80'
             ]
         );
     }

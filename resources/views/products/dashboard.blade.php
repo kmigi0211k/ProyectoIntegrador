@@ -446,7 +446,7 @@
                             <td style="padding-left:28px;">
                                 <div class="product-row">
                                     @if($product->image)
-                                        <img src="{{ asset('storage/' . $product->image) }}" class="product-thumb">
+                                        <img src="{{ str_starts_with($product->image, 'http') ? $product->image : asset('storage/' . $product->image) }}" class="product-thumb">
                                     @else
                                         <div class="product-thumb-placeholder">📦</div>
                                     @endif

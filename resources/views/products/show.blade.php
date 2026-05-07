@@ -165,7 +165,7 @@
             <div class="col-lg-6">
                 <div class="product-image-container">
                     @if($product->image)
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                        <img src="{{ str_starts_with($product->image, 'http') ? $product->image : asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                     @else
                         <div class="product-placeholder-large">
                             <i class="bi bi-image"></i>

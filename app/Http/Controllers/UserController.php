@@ -15,6 +15,20 @@ class UserController extends Controller
             abort(403);
         }
 
+        // LIMPIEZA: Si hay usuarios con el mismo nombre repetido, borrar los extras
+        $duplicateNames = User::select('user_name')
+            ->groupBy('user_name')
+            ->havingRaw('COUNT(*) > 1')
+            ->pluck('user_name');
+
+        foreach ($duplicateNames as $name) {
+            $usersToKeep = User::where('user_name', $name)->orderBy('id', 'asc')->get();
+            $first = $usersToKeep->shift(); // Quedarse con el primero
+            foreach ($usersToKeep as $extra) {
+                $extra->delete(); // Borrar los demás
+            }
+        }
+
         $users = User::with('person')->orderBy('created_at', 'desc')->get();
         return view('admin.users', compact('users'));
     }

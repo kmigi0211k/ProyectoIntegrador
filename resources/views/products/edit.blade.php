@@ -19,13 +19,25 @@
                             @if($product->image)
                                 <div class="mb-3">
                                     <label class="form-label d-block fw-bold text-muted small">Imagen Actual</label>
-                                    <img src="{{ asset('storage/' . $product->image) }}" class="img-thumbnail shadow-sm rounded-3" style="max-height: 150px;">
+                                    <img src="{{ str_starts_with($product->image, 'http') ? $product->image : asset('storage/' . $product->image) }}" class="img-thumbnail shadow-sm rounded-3" style="max-height: 150px;">
                                 </div>
                             @endif
-                            <label class="form-label d-block fw-bold text-muted small">Cambiar Imagen (Opcional)</label>
-                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror shadow-sm rounded-pill">
+                            
+                            <label class="form-label d-block fw-bold text-muted small">Cambiar Imagen</label>
+                            
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Subir nuevo archivo:</label>
+                                    <input type="file" name="image" class="form-control @error('image') is-invalid @enderror shadow-sm rounded-pill">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">O pegar nueva URL:</label>
+                                    <input type="text" name="image_url" class="form-control shadow-sm rounded-pill" placeholder="https://ejemplo.com/foto.jpg">
+                                </div>
+                            </div>
+
                             @error('image')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="text-danger small mt-2">{{ $message }}</div>
                             @enderror
                         </div>
 

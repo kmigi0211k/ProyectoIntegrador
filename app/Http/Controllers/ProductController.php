@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -81,9 +82,12 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'image' => 'nullable|file|max:10240',
+            'image_url' => 'nullable|url|max:500',
         ]);
 
-        if ($request->hasFile('image')) {
+        if ($request->filled('image_url')) {
+            $data['image'] = $request->image_url;
+        } elseif ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');
         }
 
@@ -111,10 +115,16 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
             'image' => 'nullable|file|max:10240',
+            'image_url' => 'nullable|url|max:500',
         ]);
 
-        if ($request->hasFile('image')) {
-            if ($product->image) {
+        if ($request->filled('image_url')) {
+            if ($product->image && !str_starts_with($product->image, 'http')) {
+                Storage::disk('public')->delete($product->image);
+            }
+            $data['image'] = $request->image_url;
+        } elseif ($request->hasFile('image')) {
+            if ($product->image && !str_starts_with($product->image, 'http')) {
                 Storage::disk('public')->delete($product->image);
             }
             $data['image'] = $request->file('image')->store('products', 'public');

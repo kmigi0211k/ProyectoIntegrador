@@ -14,11 +14,22 @@
                     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="mb-3 text-center">
-                            <label class="form-label d-block fw-bold text-muted small">Imagen del Producto (Opcional)</label>
-                            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror shadow-sm rounded-pill">
+                        <div class="mb-4 text-center">
+                            <label class="form-label d-block fw-bold text-muted small">Imagen del Producto</label>
+                            
+                            <div class="row g-2">
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">Subir archivo:</label>
+                                    <input type="file" name="image" class="form-control @error('image') is-invalid @enderror shadow-sm rounded-pill">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label small text-muted">O pegar URL de internet:</label>
+                                    <input type="text" name="image_url" class="form-control shadow-sm rounded-pill" placeholder="https://ejemplo.com/foto.jpg">
+                                </div>
+                            </div>
+                            
                             @error('image')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="text-danger small mt-2">{{ $message }}</div>
                             @enderror
                         </div>
 

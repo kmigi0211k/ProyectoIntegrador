@@ -41,7 +41,7 @@
                                     @foreach($order->items as $item)
                                         <div class="d-flex align-items-center mb-2">
                                             @if($item->product && $item->product->image)
-                                                <img src="{{ asset('storage/' . $item->product->image) }}" class="rounded-3 shadow-sm me-3" style="width: 45px; height: 45px; object-fit: cover;">
+                                                <img src="{{ str_starts_with($item->product->image, 'http') ? $item->product->image : asset('storage/' . $item->product->image) }}" class="rounded-3 shadow-sm me-3" style="width: 45px; height: 45px; object-fit: cover;">
                                             @else
                                                 <div class="rounded-3 bg-secondary bg-opacity-10 d-flex align-items-center justify-content-center shadow-sm me-3" style="width: 45px; height: 45px;">
                                                     <i class="bi bi-box fs-5 text-secondary"></i>

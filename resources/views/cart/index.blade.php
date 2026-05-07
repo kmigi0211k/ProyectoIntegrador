@@ -32,7 +32,7 @@
                                     <td class="ps-4">
                                         <div class="d-flex align-items-center">
                                             @if($details['image'])
-                                                <img src="{{ asset('storage/' . $details['image']) }}" class="rounded shadow-sm me-3" style="width: 50px; height: 50px; object-fit: cover;">
+                                                <img src="{{ str_starts_with($details['image'], 'http') ? $details['image'] : asset('storage/' . $details['image']) }}" class="rounded shadow-sm me-3" style="width: 50px; height: 50px; object-fit: cover;">
                                             @else
                                                 <div class="bg-light rounded d-flex align-items-center justify-content-center border me-3" style="width: 50px; height: 50px;">
                                                     <i class="bi bi-image text-muted"></i>

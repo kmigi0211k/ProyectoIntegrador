@@ -330,7 +330,14 @@
     <!-- Hero Section -->
     <div class="hero-section mb-4">
         <div class="row align-items-center">
-            <div class="col-lg-8">
+            <div class="col-lg-7">
+                @auth
+                    <div class="mb-3 animate__animated animate__fadeInDown">
+                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold">
+                            ¡Hola, {{ Auth::user()->user_name }}! 👋 Bienvenido de nuevo
+                        </span>
+                    </div>
+                @endauth
                 <h1 class="hero-title">
                     Explora nuestros<br><span>productos</span>
                 </h1>

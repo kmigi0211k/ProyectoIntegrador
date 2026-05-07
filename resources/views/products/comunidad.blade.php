@@ -306,6 +306,11 @@
     <div class="community-hero">
         <div class="row align-items-center">
             <div class="col-lg-8">
+                @auth
+                    <div class="mb-2">
+                        <span class="text-success fw-bold small">¡Hola, {{ Auth::user()->user_name }}! 👋</span>
+                    </div>
+                @endauth
                 <div class="hero-badge"><i class="bi bi-heart-fill"></i> Comunidad "12 de Octubre"</div>
                 <h1 class="hero-title">Mercado<br><span>Solidario</span></h1>
                 <p class="hero-desc">

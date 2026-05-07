@@ -379,6 +379,9 @@
                 </div>
             </div>
             <div class="d-flex gap-2 flex-wrap">
+                <a href="{{ route('admin.users') }}" class="btn-volunteers-btn" style="color: #6366f1; border-color: #c7d2fe;">
+                    <i class="bi bi-people-fill"></i> Usuarios
+                </a>
                 <a href="{{ route('orders.admin') }}" class="btn-volunteers-btn" style="color: #10b981; border-color: #a7f3d0;">
                     <i class="bi bi-cart-check-fill"></i> Historial de compras
                 </a>

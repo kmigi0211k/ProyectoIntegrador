@@ -21,6 +21,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Rutas de Administrador
     Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->group(function () {
+        Route::get('/admin/users', [\App\Http\Controllers\UserController::class, 'adminIndex'])->name('admin.users');
+        Route::post('/admin/users/{user}/toggle-admin', [\App\Http\Controllers\UserController::class, 'toggleAdmin'])->name('admin.users.toggle');
         Route::get('/dashboard', [ProductController::class, 'dashboard'])->name('products.dashboard');
         Route::get('/admin/voluntarios', [\App\Http\Controllers\VolunteerController::class, 'admin'])->name('volunteers.admin');
         Route::get('/admin/pedidos', [\App\Http\Controllers\OrderController::class, 'adminOrders'])->name('orders.admin');

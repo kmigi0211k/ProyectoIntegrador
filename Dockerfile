@@ -13,6 +13,10 @@ RUN apt-get update && apt-get install -y \
     git \
     curl
 
+# Instalar Node.js
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
 # Limpiar caché
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -37,6 +41,9 @@ COPY . .
 
 # Instalar dependencias de PHP
 RUN composer install --no-interaction --optimize-autoloader --no-dev
+
+# Instalar dependencias de JS y compilar assets
+RUN npm install && npm run build
 
 # Dar permisos a las carpetas de Laravel
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache

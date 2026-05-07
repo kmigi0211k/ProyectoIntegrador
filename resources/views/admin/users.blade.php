@@ -73,33 +73,33 @@
                             <div class="text-muted" style="font-size: 10px;">Creado {{ $user->created_at->diffForHumans() }}</div>
                         </td>
                         <td>
-                            @if($user->last_login_at)
+                            @if(isset($user->last_login_at) && $user->last_login_at)
                                 <div class="text-dark small">{{ \Carbon\Carbon::parse($user->last_login_at)->format('d/m/Y H:i') }}</div>
                                 <div class="text-muted" style="font-size: 10px;">{{ \Carbon\Carbon::parse($user->last_login_at)->diffForHumans() }}</div>
                             @else
-                                <span class="text-muted small">Nunca</span>
+                                <span class="text-muted small">No disponible</span>
                             @endif
                         </td>
                         <td class="text-center pe-4">
                             @if($user->id !== Auth::id())
                                 <div class="d-flex justify-content-center gap-2">
-                                    <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST" class="d-inline admin-toggle-form">
                                         @csrf
                                         @if($user->isAdmin())
-                                            <button type="submit" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-bold" onclick="return confirm('¿Seguro que quieres quitarle el rol de admin?')">
+                                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-bold btn-toggle-admin" data-name="{{ $user->user_name }}" data-action="quitar">
                                                 Quitar Admin
                                             </button>
                                         @else
-                                            <button type="submit" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold" onclick="return confirm('¿Seguro que quieres hacerlo admin?')">
+                                            <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold btn-toggle-admin" data-name="{{ $user->user_name }}" data-action="hacer">
                                                 Hacer Admin
                                             </button>
                                         @endif
                                     </form>
 
-                                    <form action="{{ route('admin.users.reset', $user->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.users.reset', $user->id) }}" method="POST" class="d-inline admin-reset-form">
                                         @csrf
-                                        <button type="submit" class="btn btn-warning btn-sm rounded-pill px-3 fw-bold shadow-sm" onclick="return confirm('¿Restablecer la contraseña a 12345678?')">
-                                            <i class="bi bi-key-fill"></i> Resetear Clave
+                                        <button type="button" class="btn btn-warning btn-sm rounded-pill px-3 fw-bold shadow-sm btn-reset-pass" data-name="{{ $user->user_name }}">
+                                            <i class="bi bi-key-fill"></i> Resetear
                                         </button>
                                     </form>
                                 </div>
@@ -114,4 +114,52 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelectorAll('.btn-toggle-admin').forEach(button => {
+        button.addEventListener('click', function() {
+            const form = this.closest('form');
+            const name = this.dataset.name;
+            const action = this.dataset.action;
+            
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: `¿Quieres ${action} administrador al usuario ${name}?`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#4f46e5',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Sí, cambiar rol',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+
+    document.querySelectorAll('.btn-reset-pass').forEach(button => {
+        button.addEventListener('click', function() {
+            const form = this.closest('form');
+            const name = this.dataset.name;
+            
+            Swal.fire({
+                title: 'Resetear Contraseña',
+                text: `La clave de ${name} volverá a ser "12345678". ¿Continuar?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f59e0b',
+                cancelButtonColor: '#64748b',
+                confirmButtonText: 'Sí, resetear',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        });
+    });
+</script>
 @endsection

@@ -116,7 +116,7 @@
 <div class="container">
     <div class="profile-grid">
         <!-- Mi Perfil -->
-        <a href="#" class="profile-card" onclick="alert('Función de edición en desarrollo para la entrega final')">
+        <a href="{{ route('profile.info') }}" class="profile-card">
             <div>
                 <div class="card-icon"><i class="bi bi-person-vcard"></i></div>
                 <div class="card-title">Mi Perfil</div>

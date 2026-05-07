@@ -22,6 +22,51 @@ class ProfileController extends Controller
     }
 
     /**
+     * Display personal information form.
+     */
+    public function info(Request $request): View
+    {
+        return view('profile.info', [
+            'user' => $request->user(),
+        ]);
+    }
+
+    /**
+     * Update personal information.
+     */
+    public function updateInfo(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        $person = $user->person;
+
+        $request->validate([
+            'user_name' => 'required|string|max:255|unique:users,user_name,' . $user->id,
+            'email' => 'required|email|max:255',
+            'names' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
+        ]);
+
+        // Update User
+        $user->user_name = $request->user_name;
+        $user->save();
+
+        // Update Person
+        if ($person) {
+            $person->update([
+                'email' => $request->email,
+                'names' => $request->names,
+                'last_name' => $request->last_name,
+                'phone' => $request->phone,
+                'address' => $request->address,
+            ]);
+        }
+
+        return Redirect::route('profile.edit')->with('success', 'Información actualizada correctamente.');
+    }
+
+    /**
      * Update the user's profile information.
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse

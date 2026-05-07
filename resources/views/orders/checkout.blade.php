@@ -13,20 +13,20 @@
                         @csrf
                         <div class="row g-3">
                             <div class="col-12">
-                                <label class="form-label text-secondary small">Nombre Completo</label>
-                                <input type="text" class="form-control rounded-3" value="{{ Auth::user()->person->names ?? 'Usuario' }} {{ Auth::user()->person->last_name ?? '' }}" readonly disabled>
+                                <label class="form-label text-dark fw-bold small"><i class="bi bi-person me-1 text-primary"></i>Nombre Completo</label>
+                                <input type="text" class="form-control rounded-3 bg-light" value="{{ Auth::user()->person->names ?? 'Usuario' }} {{ Auth::user()->person->last_name ?? '' }}" readonly>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label text-secondary small">Email</label>
-                                <input type="email" class="form-control rounded-3" value="{{ Auth::user()->person->email ?? 'sin-email@dominio.com' }}" readonly disabled>
+                                <label class="form-label text-dark fw-bold small"><i class="bi bi-envelope me-1 text-primary"></i>Email de Contacto</label>
+                                <input type="email" class="form-control rounded-3 bg-light" value="{{ Auth::user()->person->email ?? 'sin-email@dominio.com' }}" readonly>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label text-secondary small">Teléfono</label>
-                                <input type="text" name="phone" class="form-control rounded-3" placeholder="+57 300 123 4567" required>
+                                <label class="form-label text-dark fw-bold small"><i class="bi bi-telephone me-1 text-primary"></i>Teléfono de Entrega</label>
+                                <input type="text" name="phone" class="form-control rounded-3 border-primary" value="{{ Auth::user()->person->phone ?? '' }}" placeholder="Ej: 302 385 0997" required>
                             </div>
                             <div class="col-12">
-                                <label class="form-label text-secondary small">Dirección de Entrega</label>
-                                <input type="text" name="address" class="form-control rounded-3" placeholder="Calle 123 #45-67" required>
+                                <label class="form-label text-dark fw-bold small"><i class="bi bi-geo-alt me-1 text-primary"></i>Dirección Exacta</label>
+                                <input type="text" name="address" class="form-control rounded-3 border-primary" value="{{ Auth::user()->person->address ?? '' }}" placeholder="Ej: Calle 48 E # 93-53" required>
                             </div>
                         </div>
                 </div>

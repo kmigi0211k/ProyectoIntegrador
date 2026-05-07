@@ -11,7 +11,7 @@ Route::get('/', function () {
 
 // Rutas públicas
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show')->where('product', '[0-9]+');
 
 Route::middleware(['auth'])->group(function () {
     // Rutas de Usuario (requieren autenticación)

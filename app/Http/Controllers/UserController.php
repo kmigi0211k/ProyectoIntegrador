@@ -50,9 +50,8 @@ class UserController extends Controller
     public function resetPassword(User $user)
     {
         $user->password = Hash::make('12345678');
-        $user->password_needs_reset = true; // Forzar cambio al entrar
         $user->save();
 
-        return redirect()->back()->with('success', 'Contraseña restablecida a "12345678". El usuario deberá cambiarla al iniciar sesión.');
+        return redirect()->back()->with('success', 'Contraseña restablecida a "12345678" para el usuario ' . $user->user_name);
     }
 }

@@ -55,7 +55,6 @@ class ProfileController extends Controller
         // Update Password if provided
         if ($request->filled('password')) {
             $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
-            $user->password_needs_reset = false; // Resetear el flag
         }
         
         $user->save();

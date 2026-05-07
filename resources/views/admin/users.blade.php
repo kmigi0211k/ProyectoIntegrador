@@ -37,7 +37,6 @@
                         <th class="py-3 text-center">Rol</th>
                         <th class="py-3">Fecha Registro</th>
                         <th class="py-3">Última Conexión</th>
-                        <th class="py-3 text-center">Seguridad</th>
                         <th class="py-3 text-center pe-4">Acciones</th>
                     </tr>
                 </thead>
@@ -79,15 +78,6 @@
                                 <div class="text-muted" style="font-size: 10px;">{{ \Carbon\Carbon::parse($user->last_login_at)->diffForHumans() }}</div>
                             @else
                                 <span class="text-muted small">Nunca</span>
-                            @endif
-                        </td>
-                        <td class="text-center">
-                            @if($user->password_needs_reset)
-                                <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-2 py-1 small fw-bold">
-                                    <i class="bi bi-clock-history"></i> Cambio Pendiente
-                                </span>
-                            @else
-                                <span class="text-success small"><i class="bi bi-check-circle"></i> Al día</span>
                             @endif
                         </td>
                         <td class="text-center pe-4">

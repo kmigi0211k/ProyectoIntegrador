@@ -28,65 +28,71 @@
                     <i class="bi bi-shop-window me-2 text-primary"></i>Productos<span class="text-primary">Pro</span>
                 </a>
 
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">
-                            <i class="bi bi-shop me-1"></i>Tienda
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('products.comunidad') ? 'active' : '' }}" href="{{ route('products.comunidad') }}">
-                            <i class="bi bi-heart-fill me-1 text-danger"></i>Voluntariado
-                        </a>
-                    </li>
-                    @if(Auth::check() && Auth::user()->isAdmin())
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('products.dashboard') ? 'active' : '' }}" href="{{ route('products.dashboard') }}">
-                            <i class="bi bi-speedometer2 me-1"></i>Panel
-                        </a>
-                    </li>
-                    @endif
-                </ul>
-                
-                <div class="d-flex align-items-center gap-3">
-                    @auth
-                        <a href="{{ route('cart.index') }}" class="btn btn-outline-light btn-sm position-relative">
-                            <i class="bi bi-cart3 me-1"></i>Carrito
-                            @if(session('cart') && count(session('cart')) > 0)
-                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {{ count(session('cart')) }}
-                                </span>
-                            @endif
-                        </a>
-                        @if(Auth::user()->isAdmin())
-                            <a href="{{ route('orders.admin') }}" class="btn btn-outline-light btn-sm">
-                                <i class="bi bi-cart-check-fill me-1"></i>Historial de compras
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">
+                                <i class="bi bi-shop me-1"></i>Tienda
                             </a>
-                        @else
-                            <a href="{{ route('orders.index') }}" class="btn btn-outline-light btn-sm">
-                                <i class="bi bi-bag-check me-1"></i>Mis Compras
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('products.comunidad') ? 'active' : '' }}" href="{{ route('products.comunidad') }}">
+                                <i class="bi bi-heart-fill me-1 text-danger"></i>Voluntariado
                             </a>
-                            <a href="{{ route('volunteers.myApplications') }}" class="btn btn-outline-light btn-sm">
-                                <i class="bi bi-heart-half me-1"></i>Mis Postulaciones
+                        </li>
+                        @if(Auth::check() && Auth::user()->isAdmin())
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('products.dashboard') ? 'active' : '' }}" href="{{ route('products.dashboard') }}">
+                                <i class="bi bi-speedometer2 me-1"></i>Panel
                             </a>
+                        </li>
                         @endif
-                        <a href="{{ route('profile.edit') }}" class="btn btn-outline-light btn-sm">
-                            <i class="bi bi-person me-1"></i>Perfil ({{ Auth::user()->user_name }})
-                        </a>
-                        <form method="POST" action="{{ route('logout') }}" class="mb-0">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-light btn-sm">
-                                <i class="bi bi-box-arrow-right me-1"></i>Cerrar Sesión
-                            </button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">
-                            <i class="bi bi-box-arrow-in-right me-1"></i>Entrar
-                        </a>
-                        <a href="{{ route('register') }}" class="btn btn-light btn-sm fw-bold">
-                            Registrarse
-                        </a>
-                    @endauth
+                    </ul>
+                    
+                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-3 py-3 py-lg-0">
+                        @auth
+                            <a href="{{ route('cart.index') }}" class="btn btn-outline-light btn-sm position-relative">
+                                <i class="bi bi-cart3 me-1"></i>Carrito
+                                @if(session('cart') && count(session('cart')) > 0)
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ count(session('cart')) }}
+                                    </span>
+                                @endif
+                            </a>
+                            @if(Auth::user()->isAdmin())
+                                <a href="{{ route('orders.admin') }}" class="btn btn-outline-light btn-sm">
+                                    <i class="bi bi-cart-check-fill me-1"></i>Historial
+                                </a>
+                            @else
+                                <a href="{{ route('orders.index') }}" class="btn btn-outline-light btn-sm">
+                                    <i class="bi bi-bag-check me-1"></i>Mis Compras
+                                </a>
+                                <a href="{{ route('volunteers.myApplications') }}" class="btn btn-outline-light btn-sm">
+                                    <i class="bi bi-heart-half me-1"></i>Mis Postulaciones
+                                </a>
+                            @endif
+                            <a href="{{ route('profile.edit') }}" class="btn btn-outline-light btn-sm">
+                                <i class="bi bi-person me-1"></i>{{ Auth::user()->user_name }}
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}" class="mb-0">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-light btn-sm w-100 text-start">
+                                    <i class="bi bi-box-arrow-right me-1"></i>Salir
+                                </button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">
+                                <i class="bi bi-box-arrow-in-right me-1"></i>Entrar
+                            </a>
+                            <a href="{{ route('register') }}" class="btn btn-light btn-sm fw-bold">
+                                Registrarse
+                            </a>
+                        @endauth
+                    </div>
                 </div>
             </div>
         </nav>

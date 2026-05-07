@@ -232,6 +232,11 @@
         line-height: 1.3;
     }
 
+    @media (max-width: 768px) {
+        .hero-section { padding: 32px 24px; border-radius: 16px; }
+        .hero-title { font-size: 1.8rem; }
+    }
+
     .product-desc {
         font-size: 13px;
         color: #64748b;

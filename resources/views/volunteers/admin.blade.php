@@ -295,7 +295,7 @@
                             <td>
                                 <div class="d-flex align-items-center gap-2" style="max-width: 180px;">
                                     @if($volunteer->product && $volunteer->product->image)
-                                        <img src="{{ asset('storage/' . $volunteer->product->image) }}" class="rounded shadow-sm flex-shrink-0" style="width: 34px; height: 34px; object-fit: cover;">
+                                        <img src="{{ str_starts_with($volunteer->product->image, 'http') ? $volunteer->product->image : asset('storage/' . $volunteer->product->image) }}" class="rounded shadow-sm flex-shrink-0" style="width: 34px; height: 34px; object-fit: cover;">
                                     @else
                                         <div class="rounded bg-light d-flex align-items-center justify-content-center border flex-shrink-0" style="width: 34px; height: 34px;">
                                             <i class="bi bi-box text-muted" style="font-size:14px;"></i>

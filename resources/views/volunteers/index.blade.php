@@ -46,7 +46,7 @@
                                     <h6 class="fw-bold text-uppercase text-muted small mb-3">Producto Seleccionado</h6>
                                     <div class="d-flex align-items-center mb-2">
                                         @if($volunteer->product && $volunteer->product->image)
-                                            <img src="{{ asset('storage/' . $volunteer->product->image) }}" class="rounded-3 shadow-sm me-3" style="width: 55px; height: 55px; object-fit: cover;">
+                                            <img src="{{ str_starts_with($volunteer->product->image, 'http') ? $volunteer->product->image : asset('storage/' . $volunteer->product->image) }}" class="rounded-3 shadow-sm me-3" style="width: 55px; height: 55px; object-fit: cover;">
                                         @else
                                             <div class="rounded-3 bg-success bg-opacity-10 d-flex align-items-center justify-content-center shadow-sm me-3" style="width: 55px; height: 55px;">
                                                 <i class="bi bi-box fs-4 text-success"></i>

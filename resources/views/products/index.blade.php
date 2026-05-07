@@ -390,9 +390,6 @@
                 </a>
 
                 <div class="product-footer mt-auto">
-                    <div class="stock-info">
-                        <i class="bi bi-box-seam"></i> ID: {{ str_pad($product->id, 4, '0', STR_PAD_LEFT) }}
-                    </div>
                     @if($product->stock > 0)
                         <form action="{{ route('cart.add', $product->id) }}" method="POST" style="margin:0;">
                             @csrf

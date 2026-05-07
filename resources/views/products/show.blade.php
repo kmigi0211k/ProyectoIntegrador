@@ -207,10 +207,6 @@
                             <div class="meta-icon"><i class="bi bi-truck"></i></div>
                             <div>Envíos a todo el país</div>
                         </div>
-                        <div class="meta-item">
-                            <div class="meta-icon"><i class="bi bi-box-seam"></i></div>
-                            <div>Código de Producto: #{{ str_pad($product->id, 6, '0', STR_PAD_LEFT) }}</div>
-                        </div>
                     </div>
 
                     <div class="action-container">

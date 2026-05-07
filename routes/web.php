@@ -13,7 +13,7 @@ Route::get('/', function () {
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show')->where('product', '[0-9]+');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'force.password.reset'])->group(function () {
     // Rutas de Usuario (requieren autenticación)
     Route::get('/comunidad-12-octubre', [ProductController::class, 'comunidad'])->name('products.comunidad');
     Route::post('/comunidad-12-octubre/voluntariado/{product}', [\App\Http\Controllers\VolunteerController::class, 'store'])->name('volunteers.store');

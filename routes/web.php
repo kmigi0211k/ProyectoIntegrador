@@ -49,6 +49,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/checkout', [\App\Http\Controllers\OrderController::class, 'checkout'])->name('orders.checkout');
     Route::post('/checkout/process', [\App\Http\Controllers\OrderController::class, 'process'])->name('orders.process');
     Route::get('/orders/success/{id}', [\App\Http\Controllers\OrderController::class, 'success'])->name('orders.success');
+    // Logout GET route for convenience
+    Route::get('/logout', function () {
+        Auth::logout();
+        request()->session()->invalidate();
+        request()->session()->regenerateToken();
+        return redirect('/');
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -8,9 +8,9 @@ chown -R www-data:www-data /var/www/html/bootstrap/cache
 php artisan config:clear
 php artisan cache:clear
 
-# Ejecutar migraciones y seeders automáticamente
-echo "Ejecutando migraciones y seeders..."
-php artisan migrate --seed --force
+# Ejecutar migraciones automáticamente
+echo "Ejecutando migraciones..."
+php artisan migrate --force
 
 # Crear enlace simbólico de storage (si no existe)
 php artisan storage:link

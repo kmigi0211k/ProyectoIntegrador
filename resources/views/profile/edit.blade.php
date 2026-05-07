@@ -7,93 +7,95 @@
     .profile-hero {
         background-color: #004b93; /* Azul Alkosto */
         color: white;
-        padding: 40px 25px 80px 25px;
-        margin-bottom: -60px;
+        padding: 50px 25px 100px 25px;
+        margin-bottom: -50px;
         position: relative;
+        border-radius: 0 0 30px 30px;
     }
 
     .profile-hero h1 {
-        font-size: 24px;
+        font-size: 28px;
         font-weight: 800;
-        margin-bottom: 10px;
-    }
-
-    .profile-hero p {
-        font-size: 14px;
-        opacity: 0.9;
-        margin-bottom: 0;
+        margin-bottom: 15px;
     }
 
     .profile-grid {
         padding: 0 15px;
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        margin-top: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 0;
     }
 
     .profile-card {
         background: white;
-        border-radius: 12px;
-        padding: 20px 15px;
+        border-radius: 16px;
+        padding: 25px 20px;
         text-align: left;
         text-decoration: none;
         color: #333;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        transition: transform 0.2s, box-shadow 0.2s;
-        border: 1px solid #eee;
-        min-height: 150px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        border: 1px solid #edf2f7;
+        min-height: 180px;
     }
 
     .profile-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-        color: #004b93;
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        border-color: #004b93;
     }
 
     .card-icon {
-        font-size: 28px;
+        font-size: 32px;
         color: #004b93;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
 
     .card-title {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: 800;
-        margin-bottom: 8px;
+        margin-bottom: 10px;
+        color: #1a202c;
     }
 
     .card-desc {
-        font-size: 12px;
-        color: #666;
-        line-height: 1.4;
+        font-size: 13px;
+        color: #718096;
+        line-height: 1.5;
     }
 
     .logout-section {
-        margin-top: 40px;
-        padding: 0 15px 40px 15px;
+        margin-top: 50px;
+        padding: 0 15px 60px 15px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .btn-logout-alt {
         width: 100%;
-        background: white;
+        background: #fff1f2;
         color: #e11d48;
-        border: 1px solid #fb7185;
-        padding: 12px;
-        border-radius: 10px;
-        font-weight: 700;
+        border: 2px solid #fb7185;
+        padding: 15px;
+        border-radius: 12px;
+        font-weight: 800;
+        font-size: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 10px;
+        gap: 12px;
         transition: all 0.2s;
+        box-shadow: 0 4px 12px rgba(225, 29, 72, 0.1);
     }
 
     .btn-logout-alt:hover {
-        background: #fff1f2;
+        background: #e11d48;
+        color: white;
     }
 
     @media (max-width: 576px) {

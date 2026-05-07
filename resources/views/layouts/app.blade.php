@@ -51,37 +51,37 @@
                     
                     <div class="d-flex align-items-center gap-2 gap-md-3 flex-wrap justify-content-end">
                         @auth
-                            <a href="{{ route('cart.index') }}" class="btn btn-outline-light btn-sm position-relative">
-                                <i class="bi bi-cart3"></i>
+                            <a href="{{ route('cart.index') }}" class="btn btn-outline-light px-3 py-2 position-relative shadow-sm">
+                                <i class="bi bi-cart3 fs-5"></i>
                                 @if(session('cart') && count(session('cart')) > 0)
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.7rem;">
                                         {{ count(session('cart')) }}
                                     </span>
                                 @endif
                             </a>
                             @if(Auth::user()->isAdmin())
-                                <a href="{{ route('orders.admin') }}" class="btn btn-outline-light btn-sm d-none d-md-inline-block">
-                                    <i class="bi bi-cart-check-fill me-1"></i>Historial
+                                <a href="{{ route('orders.admin') }}" class="btn btn-outline-light px-3 py-2 d-none d-md-inline-block shadow-sm fw-bold">
+                                    <i class="bi bi-cart-check-fill me-1 fs-5"></i> Historial
                                 </a>
                             @else
-                                <a href="{{ route('orders.index') }}" class="btn btn-outline-light btn-sm d-none d-md-inline-block">
-                                    <i class="bi bi-bag-check me-1"></i>Compras
+                                <a href="{{ route('orders.index') }}" class="btn btn-outline-light px-3 py-2 d-none d-md-inline-block shadow-sm fw-bold">
+                                    <i class="bi bi-bag-check me-1 fs-5"></i> Compras
                                 </a>
                             @endif
-                            <a href="{{ route('profile.edit') }}" class="btn btn-outline-light btn-sm">
-                                <i class="bi bi-person me-1"></i><span class="d-none d-sm-inline">{{ Auth::user()->user_name }}</span>
+                            <a href="{{ route('profile.edit') }}" class="btn btn-outline-light px-3 py-2 shadow-sm fw-bold">
+                                <i class="bi bi-person me-1 fs-5"></i> <span class="d-none d-sm-inline">{{ Auth::user()->user_name }}</span>
                             </a>
                             <form method="POST" action="{{ route('logout') }}" class="mb-0">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-danger btn-sm border-0">
-                                    <i class="bi bi-box-arrow-right"></i>
+                                <button type="submit" class="btn btn-outline-danger px-3 py-2 border-0 shadow-none">
+                                    <i class="bi bi-box-arrow-right fs-4"></i>
                                 </button>
                             </form>
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">
+                            <a href="{{ route('login') }}" class="btn btn-outline-light px-4 py-2 fw-bold">
                                 Entrar
                             </a>
-                            <a href="{{ route('register') }}" class="btn btn-primary btn-sm fw-bold shadow-sm">
+                            <a href="{{ route('register') }}" class="btn btn-primary px-4 py-2 fw-bold shadow-sm">
                                 Registro
                             </a>
                         @endauth

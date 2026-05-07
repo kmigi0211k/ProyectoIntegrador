@@ -22,7 +22,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-light">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4 shadow-sm">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="{{ url('/') }}">
                     <i class="bi bi-shop-window me-2 text-primary"></i>Productos<span class="text-primary">Pro</span>
@@ -53,7 +53,7 @@
                         @endif
                     </ul>
                     
-                    <div class="d-flex flex-column flex-lg-row align-items-lg-center gap-3 py-3 py-lg-0">
+                    <div class="d-flex flex-column flex-md-row align-items-md-center gap-3 py-3 py-md-0">
                         @auth
                             <a href="{{ route('cart.index') }}" class="btn btn-outline-light btn-sm position-relative">
                                 <i class="bi bi-cart3 me-1"></i>Carrito

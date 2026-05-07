@@ -46,10 +46,17 @@ class ProfileController extends Controller
             'last_name' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',
             'address' => 'nullable|string|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
 
         // Update User
         $user->user_name = $request->user_name;
+        
+        // Update Password if provided
+        if ($request->filled('password')) {
+            $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        }
+        
         $user->save();
 
         // Update Person

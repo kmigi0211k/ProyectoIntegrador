@@ -63,6 +63,27 @@
                             </div>
                         </div>
 
+                        <h5 class="fw-bold mb-4 text-primary border-bottom pb-2">Seguridad (Opcional)</h5>
+                        <p class="text-muted small mb-3">Deja estos campos vacíos si no deseas cambiar tu contraseña.</p>
+
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Nueva Contraseña</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0 rounded-start-3"><i class="bi bi-shield-lock"></i></span>
+                                    <input type="password" name="password" class="form-control border-start-0 rounded-end-3" placeholder="Mínimo 8 caracteres">
+                                </div>
+                                @error('password') <span class="text-danger small">{{ $message }}</span> @enderror
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold">Confirmar Contraseña</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-end-0 rounded-start-3"><i class="bi bi-shield-check"></i></span>
+                                    <input type="password" name="password_confirmation" class="form-control border-start-0 rounded-end-3" placeholder="Repite la contraseña">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="d-grid mt-5">
                             <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-bold shadow-sm">
                                 Guardar Cambios <i class="bi bi-check-circle ms-2"></i>

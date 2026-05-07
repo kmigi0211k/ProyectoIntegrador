@@ -73,18 +73,27 @@
                         </td>
                         <td class="text-center pe-4">
                             @if($user->id !== Auth::id())
-                                <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @if($user->isAdmin())
-                                        <button type="submit" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-bold" onclick="return confirm('¿Seguro que quieres quitarle el rol de admin?')">
-                                            Quitar Admin
+                                <div class="d-flex justify-content-center gap-2">
+                                    <form action="{{ route('admin.users.toggle', $user->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @if($user->isAdmin())
+                                            <button type="submit" class="btn btn-outline-secondary btn-sm rounded-pill px-3 fw-bold" onclick="return confirm('¿Seguro que quieres quitarle el rol de admin?')">
+                                                Quitar Admin
+                                            </button>
+                                        @else
+                                            <button type="submit" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold" onclick="return confirm('¿Seguro que quieres hacerlo admin?')">
+                                                Hacer Admin
+                                            </button>
+                                        @endif
+                                    </form>
+
+                                    <form action="{{ route('admin.users.reset', $user->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <button type="submit" class="btn btn-warning btn-sm rounded-pill px-3 fw-bold shadow-sm" onclick="return confirm('¿Restablecer la contraseña a 12345678?')">
+                                            <i class="bi bi-key-fill"></i> Resetear Clave
                                         </button>
-                                    @else
-                                        <button type="submit" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-bold" onclick="return confirm('¿Seguro que quieres hacerlo admin?')">
-                                            Hacer Admin
-                                        </button>
-                                    @endif
-                                </form>
+                                    </form>
+                                </div>
                             @else
                                 <span class="badge bg-light text-muted rounded-pill px-3 py-2">Tú (Admin)</span>
                             @endif

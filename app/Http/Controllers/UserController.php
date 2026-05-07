@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -44,5 +45,13 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', 'Rol de usuario actualizado correctamente.');
+    }
+
+    public function resetPassword(User $user)
+    {
+        $user->password = Hash::make('12345678');
+        $user->save();
+
+        return redirect()->back()->with('success', 'Contraseña restablecida a "12345678" para el usuario ' . $user->user_name);
     }
 }

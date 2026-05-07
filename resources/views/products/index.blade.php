@@ -332,15 +332,51 @@
         <div class="row align-items-center">
             <div class="col-lg-7">
                 @auth
-                    <div class="mb-3 animate__animated animate__fadeInDown">
-                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold">
-                            ¡Hola, {{ Auth::user()->user_name }}! 👋 Bienvenido de nuevo
-                        </span>
+                    <div class="welcome-container animate__animated animate__backInDown mb-4">
+                        <div class="welcome-card-glass p-3 rounded-4 d-inline-flex align-items-center">
+                            <div class="welcome-avatar me-3">
+                                {{ strtoupper(substr(Auth::user()->user_name, 0, 1)) }}
+                            </div>
+                            <div>
+                                <div class="welcome-label">Bienvenido de nuevo,</div>
+                                <div class="welcome-name">{{ Auth::user()->user_name }}! 👋</div>
+                            </div>
+                        </div>
                     </div>
+
+                    <style>
+                        .welcome-card-glass {
+                            background: rgba(255, 255, 255, 0.7);
+                            backdrop-filter: blur(10px);
+                            border: 1px solid rgba(99, 102, 241, 0.2);
+                            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+                        }
+                        .welcome-avatar {
+                            width: 50px; height: 50px;
+                            background: linear-gradient(135deg, #6366f1, #4f46e5);
+                            color: white;
+                            border-radius: 12px;
+                            display: flex; align-items: center; justify-content: center;
+                            font-weight: 800; font-size: 20px;
+                            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+                        }
+                        .welcome-label {
+                            font-size: 13px;
+                            color: #64748b;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            letter-spacing: 1px;
+                        }
+                        .welcome-name {
+                            font-size: 24px;
+                            font-weight: 800;
+                            background: linear-gradient(135deg, #1e293b, #475569);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    </style>
                 @endauth
-                <h1 class="hero-title">
-                    Explora nuestros<br><span>productos</span>
-                </h1>
+                <h1 class="hero-title">Explora nuestros<br><span>productos</span></h1>
                 <p class="hero-subtitle">
                     Encuentra la mejor calidad y precios increíbles en un solo lugar. 
                     Más de {{ $products->count() }} productos disponibles para ti.

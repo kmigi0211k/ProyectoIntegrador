@@ -24,26 +24,26 @@
     <body class="bg-light">
         <nav class="navbar navbar-dark bg-dark mb-4 shadow-sm py-3">
             <div class="container flex-wrap flex-md-nowrap">
-                <a class="navbar-brand fw-bold mb-2 mb-md-0 me-md-4" href="{{ url('/') }}">
+                <a class="navbar-brand fw-bold mb-2 mb-md-0 me-md-4 fs-3" href="{{ url('/') }}">
                     <i class="bi bi-shop-window me-2 text-primary"></i>Productos<span class="text-primary">Pro</span>
                 </a>
 
                 <div class="d-flex flex-grow-1 justify-content-between align-items-center flex-wrap gap-3">
-                    <ul class="navbar-nav flex-row gap-3 mb-0">
+                    <ul class="navbar-nav flex-row gap-2 gap-md-3 mb-0">
                         <li class="nav-item">
-                            <a class="nav-link p-0 {{ request()->routeIs('products.index') ? 'active' : '' }}" href="{{ route('products.index') }}">
-                                <i class="bi bi-shop me-1"></i>Tienda
+                            <a class="btn {{ request()->routeIs('products.index') ? 'btn-primary' : 'btn-outline-light' }} px-3 py-2 fw-bold shadow-sm" href="{{ route('products.index') }}">
+                                <i class="bi bi-shop me-1"></i> Tienda
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link p-0 {{ request()->routeIs('products.comunidad') ? 'active' : '' }}" href="{{ route('products.comunidad') }}">
-                                <i class="bi bi-heart-fill me-1 text-danger"></i>Voluntariado
+                            <a class="btn {{ request()->routeIs('products.comunidad') ? 'btn-primary' : 'btn-outline-light' }} px-3 py-2 fw-bold shadow-sm" href="{{ route('products.comunidad') }}">
+                                <i class="bi bi-heart-fill me-1 text-danger"></i> Voluntariado
                             </a>
                         </li>
                         @if(Auth::check() && Auth::user()->isAdmin())
                         <li class="nav-item d-none d-sm-block">
-                            <a class="nav-link p-0 {{ request()->routeIs('products.dashboard') ? 'active' : '' }}" href="{{ route('products.dashboard') }}">
-                                <i class="bi bi-speedometer2 me-1"></i>Panel
+                            <a class="btn {{ request()->routeIs('products.dashboard') ? 'btn-primary' : 'btn-outline-light' }} px-3 py-2 fw-bold shadow-sm" href="{{ route('products.dashboard') }}">
+                                <i class="bi bi-speedometer2 me-1"></i> Panel
                             </a>
                         </li>
                         @endif

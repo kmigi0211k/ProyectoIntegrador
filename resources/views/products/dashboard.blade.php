@@ -406,8 +406,8 @@
             <div class="stat-card">
                 <div class="stat-icon-box icon-green"><i class="bi bi-check-circle-fill"></i></div>
                 <div class="stat-info">
-                    <div class="stat-value">{{ $products->where('stock', '>', 0)->count() }}</div>
-                    <div class="stat-label">En Stock</div>
+                    <div class="stat-value">{{ $products->where('stock', '>', 5)->count() }}</div>
+                    <div class="stat-label">Stock Suficiente</div>
                 </div>
             </div>
             <div class="stat-card">
@@ -463,7 +463,7 @@
                                 <span class="badge-price">$ {{ number_format($product->price, 0, ',', '.') }} COP</span>
                             </td>
                             <td>
-                                @if($product->stock > 10)
+                                @if($product->stock > 5)
                                     <span class="badge-stock-ok"><i class="bi bi-archive"></i>{{ $product->stock }} unid.</span>
                                 @elseif($product->stock > 0)
                                     <span class="badge-stock-low"><i class="bi bi-exclamation-triangle"></i>{{ $product->stock }} unid.</span>

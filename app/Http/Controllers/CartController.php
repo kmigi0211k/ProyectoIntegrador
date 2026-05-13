@@ -83,6 +83,12 @@ class CartController extends Controller
     public function update(Request $request)
     {
         if ($request->id && $request->quantity) {
+            // Validación: no permitir 0 ni negativos
+            if ((int)$request->quantity < 1) {
+                session()->flash('error', 'La cantidad debe ser mínimo 1.');
+                return response()->json(['success' => false, 'error' => 'Cantidad inválida']);
+            }
+
             $product = Product::find($request->id);
             if ($request->quantity > $product->stock) {
                 session()->flash('error', 'No puedes agregar más de ' . $product->stock . ' unidades.');
@@ -90,7 +96,7 @@ class CartController extends Controller
             }
 
             $cart = session()->get('cart');
-            $cart[$request->id]["quantity"] = $request->quantity;
+            $cart[$request->id]["quantity"] = (int)$request->quantity;
             session()->put('cart', $cart);
             session()->flash('success', 'Carrito actualizado.');
         }

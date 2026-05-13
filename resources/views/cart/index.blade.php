@@ -43,7 +43,7 @@
                                     </td>
                                     <td>$ {{ number_format($details['price'], 0, ',', '.') }} COP</td>
                                     <td>
-                                        <input type="number" value="{{ $details['quantity'] }}" class="form-control form-control-sm text-center quantity update-cart" data-id="{{ $id }}" style="width: 70px;">
+                                        <input type="number" value="{{ $details['quantity'] }}" min="1" max="{{ \App\Models\Product::find($id)->stock ?? 99 }}" class="form-control form-control-sm text-center quantity update-cart" data-id="{{ $id }}" style="width: 70px;">
                                     </td>
                                     <td class="fw-bold text-dark">
                                         $ {{ number_format($details['price'] * $details['quantity'], 0, ',', '.') }} COP
@@ -92,13 +92,40 @@
     $(".update-cart").change(function (e) {
         e.preventDefault();
         var ele = $(this);
+        var qty = parseInt(ele.val());
+        var maxQty = parseInt(ele.attr('max'));
+
+        // Validación: no permitir 0 ni negativos
+        if (isNaN(qty) || qty < 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Cantidad inválida',
+                text: 'La cantidad debe ser mínimo 1.',
+                confirmButtonColor: '#e11d48'
+            });
+            ele.val(1);
+            return;
+        }
+
+        // Validación: no superar el stock disponible
+        if (qty > maxQty) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Stock insuficiente',
+                text: 'Solo hay ' + maxQty + ' unidades disponibles.',
+                confirmButtonColor: '#f59e0b'
+            });
+            ele.val(maxQty);
+            return;
+        }
+
         $.ajax({
             url: '{{ route('cart.update') }}',
             method: "patch",
             data: {
                 _token: '{{ csrf_token() }}', 
                 id: ele.attr("data-id"), 
-                quantity: ele.val()
+                quantity: qty
             },
             success: function (response) {
                 window.location.reload();

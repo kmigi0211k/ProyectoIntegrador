@@ -22,7 +22,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="bg-light">
-        <nav class="navbar navbar-dark bg-dark shadow-sm py-2">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-2">
             <div class="container">
                 <!-- Brand -->
                 <a class="navbar-brand fw-bold fs-4" href="{{ url('/') }}">

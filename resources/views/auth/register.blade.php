@@ -275,7 +275,7 @@
             <label for="user_name" class="form-label">Nombre de Usuario</label>
             <div class="input-wrapper">
                 <i class="bi bi-at input-icon"></i>
-                <input id="user_name" type="text" name="user_name"
+                <input id="username_reg" type="text" name="user_name"
                     class="form-control @error('user_name') is-invalid @enderror"
                     value="{{ old('user_name') }}" required placeholder="juanperez123">
             </div>

@@ -307,7 +307,7 @@
             <div class="input-wrapper">
                 <i class="bi bi-person input-icon"></i>
                 <input
-                    id="user_name"
+                    id="username"
                     type="text"
                     name="user_name"
                     class="form-control @error('user_name') is-invalid @enderror"

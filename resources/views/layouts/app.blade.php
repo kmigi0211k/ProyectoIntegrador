@@ -78,7 +78,7 @@
                                 </button>
                             </form>
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-outline-light px-4 py-2 fw-bold" id="login-button">
+                            <a href="{{ route('login') }}" class="btn btn-outline-light px-4 py-2 fw-bold" id="btn-entrar">
                                 Entrar
                             </a>
                             <a href="{{ route('register') }}" class="btn btn-primary px-4 py-2 fw-bold shadow-sm">

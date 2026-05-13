@@ -308,7 +308,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn-register">
+        <button type="submit" class="btn-register" id="btn-register-submit">
             <i class="bi bi-person-plus me-2"></i>Crear Cuenta Ahora
         </button>
     </form>

@@ -353,7 +353,7 @@
         </div>
 
         <!-- Botón Login -->
-        <button type="submit" class="btn-login">
+        <button type="submit" class="btn-login" id="btn-login-submit">
             <i class="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión
         </button>
     </form>

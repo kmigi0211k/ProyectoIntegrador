@@ -360,7 +360,7 @@
                     <div class="product-desc">{{ $product->description }}</div>
 
                     @auth
-                        <button type="button" class="btn-postulate"
+                        <button type="button" class="btn-postulate" id="btn-volunteer-open-{{ $product->id }}"
                             data-bs-toggle="modal" data-bs-target="#vModal{{ $product->id }}">
                             <i class="bi bi-hand-thumbs-up-fill"></i> Postularme como Voluntario
                         </button>
@@ -420,7 +420,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn-cancel-modal" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="submit" class="btn-confirm">
+                            <button type="submit" class="btn-confirm" id="btn-volunteer-confirm">
                                 <i class="bi bi-check-lg me-1"></i> Confirmar Postulación
                             </button>
                         </div>

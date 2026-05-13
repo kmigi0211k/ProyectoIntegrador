@@ -441,7 +441,7 @@
                     @if($product->stock > 0)
                         <form action="{{ route('cart.add', $product->id) }}" method="POST" style="margin:0;">
                             @csrf
-                            <button type="submit" class="btn-add-cart">
+                            <button type="submit" class="btn-add-cart" id="btn-add-to-cart-{{ $product->id }}">
                                 <i class="bi bi-cart-plus"></i> Añadir
                             </button>
                         </form>

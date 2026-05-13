@@ -70,7 +70,7 @@
                     <button type="button" class="btn btn-link text-danger text-decoration-none small" id="clear-cart">
                         Vaciar Carrito
                     </button>
-                    <a href="{{ route('orders.checkout') }}" class="btn btn-success rounded-pill px-4 shadow-sm fw-bold">
+                    <a href="{{ route('orders.checkout') }}" class="btn btn-success rounded-pill px-4 shadow-sm fw-bold" id="btn-proceed-checkout">
                         Proceder al Pago <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </div>

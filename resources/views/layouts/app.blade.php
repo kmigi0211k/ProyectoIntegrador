@@ -68,17 +68,17 @@
                                     <i class="bi bi-bag-check me-1 fs-5"></i> Compras
                                 </a>
                             @endif
-                            <a href="{{ route('profile.edit') }}" class="btn btn-outline-light px-3 py-2 shadow-sm fw-bold">
+                            <a href="{{ route('profile.edit') }}" class="btn btn-outline-light px-3 py-2 shadow-sm fw-bold" id="btn-edit-profile">
                                 <i class="bi bi-person me-1 fs-5"></i> <span class="d-none d-sm-inline">{{ Auth::user()->user_name }}</span>
                             </a>
                             <form method="POST" action="{{ route('logout') }}" class="mb-0">
                                 @csrf
-                                <button type="submit" class="btn btn-outline-danger px-3 py-2 border-0 shadow-none">
+                                <button type="submit" class="btn btn-outline-danger px-3 py-2 border-0 shadow-none" id="btn-logout">
                                     <i class="bi bi-box-arrow-right fs-4"></i>
                                 </button>
                             </form>
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-outline-light px-4 py-2 fw-bold">
+                            <a href="{{ route('login') }}" class="btn btn-outline-light px-4 py-2 fw-bold" id="btn-login-nav">
                                 Entrar
                             </a>
                             <a href="{{ route('register') }}" class="btn btn-primary px-4 py-2 fw-bold shadow-sm">

@@ -314,7 +314,7 @@
                     value="{{ old('user_name') }}"
                     required
                     autofocus
-                    placeholder="tu_usuario"
+                    placeholder="Escribe tu usuario aquí"
                     autocomplete="username">
             </div>
             @error('user_name')

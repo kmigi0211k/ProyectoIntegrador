@@ -28,6 +28,7 @@ class Product extends Model
         'description',
         'price',
         'stock',
+        'hours_required',
         'image',
         'creation_date',
         'is_active',

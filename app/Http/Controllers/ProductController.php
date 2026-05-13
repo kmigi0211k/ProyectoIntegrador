@@ -81,8 +81,9 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'nullable|file|max:10240',
-            'image_url' => 'nullable|url|max:500',
+            'hours_required' => 'required|integer|min:1|max:200',
+            'image'          => 'nullable|file|max:10240',
+            'image_url'      => 'nullable|url|max:500',
         ]);
 
         if ($request->filled('image_url')) {
@@ -114,8 +115,9 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'image' => 'nullable|file|max:10240',
-            'image_url' => 'nullable|url|max:500',
+            'hours_required' => 'required|integer|min:1|max:200',
+            'image'          => 'nullable|file|max:10240',
+            'image_url'      => 'nullable|url|max:500',
         ]);
 
         if ($request->filled('image_url')) {

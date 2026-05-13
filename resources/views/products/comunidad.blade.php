@@ -401,10 +401,17 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label-modal">Horas de compromiso</label>
-                                <input type="number" name="hours_committed"
-                                    class="form-control-dark" min="1" max="100" required
-                                    placeholder="Ej: 10">
+                                <label class="form-label-modal">Horas de Compromiso</label>
+                                <div class="d-flex align-items-center gap-3 p-3 rounded-3" style="background:#f0fdf4; border:1px solid #bbf7d0;">
+                                    <div class="text-center">
+                                        <div style="font-size:2rem; font-weight:800; color:#059669; line-height:1;">{{ $product->hours_required ?? 4 }}</div>
+                                        <div style="font-size:11px; color:#065f46; font-weight:600;">HORAS</div>
+                                    </div>
+                                    <div style="font-size:13px; color:#065f46;">
+                                        Este producto requiere <strong>{{ $product->hours_required ?? 4 }} horas</strong> de servicio comunitario establecidas por el administrador.
+                                    </div>
+                                </div>
+                                <input type="hidden" name="hours_committed" value="{{ $product->hours_required ?? 4 }}">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label-modal">Número de Teléfono (WhatsApp)</label>

@@ -68,6 +68,19 @@
                             </div>
                         </div>
 
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                <i class="bi bi-clock me-1 text-success"></i>Horas de Voluntariado Requeridas
+                            </label>
+                            <input type="number" name="hours_required" min="1" max="200"
+                                class="form-control @error('hours_required') is-invalid @enderror"
+                                value="{{ old('hours_required', 4) }}" placeholder="Ej: 8">
+                            <div class="form-text small">Define cuántas horas de servicio comunitario debe comprometer el usuario para obtener este producto.</div>
+                            @error('hours_required')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
                         <div class="mb-3 form-check mt-3">
                             <input type="checkbox" name="is_active" class="form-check-input" id="isActiveCheck" checked>
                             <label class="form-check-label fw-bold" for="isActiveCheck">
